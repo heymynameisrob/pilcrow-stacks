@@ -3,10 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
   reactStrictMode: true,
-  serverRuntimeConfig: {
-    // Will only be available on the server side
-    POSTGRES_URL: process.env.POSTGRES_URL,
-  },
+  transpilePackages: ["next-auth"],
   async headers() {
     return [
       {

@@ -124,10 +124,6 @@
     @apply text-sm leading-5 tracking-normal;
   }
 
-  span:not(.prose span) {
-    @apply text-xs leading-4 tracking-[0.01em];
-  }
-
   strong {
     @apply font-medium;
   }

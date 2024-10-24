@@ -1,14 +1,32 @@
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import NextAuth from "next-auth";
+import Resend from "next-auth/providers/resend";
 import { db } from "@/db";
-import { accounts, sessions, users, verificationTokens } from "@/db/schema";
+import {
+  accounts,
+  sessions,
+  users,
+  verificationTokens,
+} from "@/drizzle/schema";
+import { IS_DEV } from "@/flags";
 
-export const { handlers, auth } = NextAuth({
+export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: DrizzleAdapter(db, {
     usersTable: users,
     accountsTable: accounts,
     sessionsTable: sessions,
     verificationTokensTable: verificationTokens,
   }),
-  providers: [],
+  callbacks: {
+    authorized: async ({ auth }) => {
+      // Logged in users are authenticated, otherwise redirect to login page
+      return !!auth;
+    },
+  },
+  providers: [
+    Resend({
+      from: "no-reply@heymynameisrob.com",
+    }),
+  ],
+  debug: IS_DEV,
 });

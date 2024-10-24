@@ -6,7 +6,6 @@ import {
   integer,
   pgTableCreator,
 } from "drizzle-orm/pg-core";
-import { sql } from "drizzle-orm";
 
 import type { AdapterAccountType } from "next-auth/adapters";
 
@@ -88,3 +87,7 @@ export const authenticators = pgTable(
     }),
   }),
 );
+
+export const test = pgTable("test", {
+  name: text(),
+});

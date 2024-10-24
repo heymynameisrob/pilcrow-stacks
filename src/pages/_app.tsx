@@ -1,17 +1,23 @@
 import React from "react";
-import "@/styles/globals.css";
+import { IS_DEV } from "@/flags";
+import { ThemeProvider } from "next-themes";
 import * as Tooltip from "@radix-ui/react-tooltip";
-import type { AppProps } from "next/app";
 import {
   MutationCache,
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
-import { IS_DEV } from "@/flags";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { ThemeProvider } from "next-themes";
 
-export default function App({ Component, pageProps }: AppProps) {
+import type { AppProps } from "next/app";
+
+import "@/styles/globals.css";
+import { SessionProvider } from "next-auth/react";
+
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppProps) {
   const [queryClient] = React.useState(
     () =>
       new QueryClient({
@@ -51,13 +57,23 @@ export default function App({ Component, pageProps }: AppProps) {
   );
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider attribute="class">
-        <Tooltip.Provider delayDuration={200}>
-          <Component {...pageProps} />
-        </Tooltip.Provider>
-      </ThemeProvider>
-      <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-right" />
-    </QueryClientProvider>
+    <SessionProvider session={session}>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Tooltip.Provider delayDuration={200}>
+            <Component {...pageProps} />
+          </Tooltip.Provider>
+        </ThemeProvider>
+        <ReactQueryDevtools
+          initialIsOpen={false}
+          buttonPosition="bottom-right"
+        />
+      </QueryClientProvider>
+    </SessionProvider>
   );
 }

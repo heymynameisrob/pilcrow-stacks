@@ -1,14 +1,16 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { db, schema } from "@/db";
 import type { NextApiRequest, NextApiResponse } from "next";
+import { signIn } from "@/auth";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const json = await db.select().from(schema.test);
+  const data = req.body;
 
-  console.log(json);
-
-  return res.status(200).json({ message: "Yes!" });
+  try {
+    return await signIn("resend", data);
+  } catch (err: unknown) {
+    return res.status(500).json({ message: err });
+  }
 }
