@@ -25,7 +25,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   },
   providers: [
     Resend({
-      from: "no-reply@heymynameisrob.com",
+      from: process.env.EMAIL_FROM!,
     }),
   ],
   debug: IS_DEV,
