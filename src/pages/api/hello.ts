@@ -1,13 +1,16 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
+import { auth } from "@/auth";
 
-type Data = {
-  name: string;
-};
-
-export default function handler(
+export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>,
+  res: NextApiResponse,
 ) {
-  res.status(200).json({ name: "John Doe" });
+  /**
+   * Auth check must happen in front of any route that isn't completely public
+   */
+  const session = await auth(req, res);
+  if (!session) return res.status(401).json({ message: "Unauthorized" });
+
+  return res.status(200).json({ name: "John Doe" });
 }

@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: postgres
+    container_name: pilcrow_postgres
+    platform: linux/amd64/v8
+    environment:
+      POSTGRES_USER: next_starter
+      POSTGRES_PASSWORD: next_starter
+      POSTGRES_DB: next_starter
+    ports:
+      - "54320:5432"
+  pg_proxy:
+    image: ghcr.io/neondatabase/wsproxy:latest
+    platform: linux/amd64/v8
+    environment:
+      APPEND_PORT: "postgres:5432"
+      ALLOW_ADDR_REGEX: ".*"
+      LOG_TRAFFIC: "true"
+    ports:
+      - "54330:80"
+    depends_on:
+      - postgres
