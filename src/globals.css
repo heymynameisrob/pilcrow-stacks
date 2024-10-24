@@ -21,7 +21,7 @@
   --border: hsla(0, 0%, 13%, 0.1);
   --border-secondary: hsla(0, 0%, 13%, 0.06);
 
-  --accent: red;
+  --accent: #007aff;
 
   --shadow-flat: 0px 1px 0px 1px rgba(255, 255, 255, 0.03) inset,
     0px 0px 0px 1px rgba(0, 0, 0, 0.08), 0px 1px 3px 0px rgba(0, 0, 0, 0.06);
@@ -36,7 +36,7 @@
     0px 4px 9px 0px rgba(0, 0, 0, 0.1);
 }
 
-.dark:root {
+.dark {
   --background: hsl(0, 0%, 4%);
 
   --gray-1: hsl(0, 0%, 6%);

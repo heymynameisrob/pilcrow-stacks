@@ -1,3 +1,11 @@
+import {
+  ComputerDesktopIcon,
+  MoonIcon,
+  SunIcon,
+} from "@heroicons/react/16/solid";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
+
 import { Button } from "@/components/button";
 import {
   DropdownMenu,
@@ -7,13 +15,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/dropdown-menu";
 import { Tooltip } from "@/components/tooltip";
-import {
-  ComputerDesktopIcon,
-  MoonIcon,
-  SunIcon,
-} from "@heroicons/react/16/solid";
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { Avatar } from "@/components/avatar";
 
 export function ThemeToggle() {
   const [isMounted, setIsMounted] = useState<boolean>(false);
@@ -30,7 +32,7 @@ export function ThemeToggle() {
       <Tooltip content="Switch theme" side="right">
         <DropdownMenuTrigger asChild>
           <Button size="icon" variant="ghost">
-            {theme === "light" ? (
+            {/* {theme === "light" ? (
               <SunIcon className="w-4 h-4 opacity-80" />
             ) : null}
             {theme === "dark" ? (
@@ -38,7 +40,8 @@ export function ThemeToggle() {
             ) : null}
             {theme === "system" ? (
               <ComputerDesktopIcon className="w-4 h-4 opacity-80" />
-            ) : null}
+            ) : null} */}
+            <Avatar name="Rob Hough" />
           </Button>
         </DropdownMenuTrigger>
       </Tooltip>

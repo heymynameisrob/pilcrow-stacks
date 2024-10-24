@@ -1,3 +1,12 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { AnimatePresence, motion } from "framer-motion";
+import { Loader2 } from "lucide-react";
+import { signIn } from "next-auth/react";
+import { useMemo, useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
+import { Button } from "@/components/button";
 import {
   Form,
   FormControl,
@@ -6,15 +15,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import { Input } from "@/components/input";
-import { Button } from "@/components/button";
-import { signIn } from "next-auth/react";
-import { useMemo, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Loader2 } from "lucide-react";
 import { cn } from "@/utils";
 
 const formSchema = z.object({
@@ -46,7 +47,7 @@ export function LoginForm() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     setState("submitting");
-    signIn("resend", values).then(() => {
+    signIn("resend", { redirect: false, ...values }).then(() => {
       setState("success");
     });
     console.log(values);

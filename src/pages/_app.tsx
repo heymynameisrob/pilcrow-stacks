@@ -1,6 +1,3 @@
-import React from "react";
-import { IS_DEV } from "@/flags";
-import { ThemeProvider } from "next-themes";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import {
   MutationCache,
@@ -8,11 +5,15 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { SessionProvider } from "next-auth/react";
+import { ThemeProvider } from "next-themes";
+import React from "react";
+
+import { IS_DEV } from "@/flags";
 
 import type { AppProps } from "next/app";
 
-import "@/styles/globals.css";
-import { SessionProvider } from "next-auth/react";
+import "@/globals.css";
 
 export default function App({
   Component,

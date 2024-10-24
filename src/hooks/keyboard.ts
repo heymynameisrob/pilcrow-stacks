@@ -1,4 +1,5 @@
 import { useEffect, useMemo } from "react";
+
 import { useOS } from "./os";
 
 type UseKeyboardShortcutArgs = {

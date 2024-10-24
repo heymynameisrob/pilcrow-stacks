@@ -1,17 +1,36 @@
 {
-  "extends": ["eslint:recommended", "next", "next/typescript", "prettier"],
+  "extends": [
+    "eslint:recommended",
+    "next",
+    "next/typescript",
+    "prettier",
+    "plugin:import/recommended",
+    "plugin:import/typescript"
+  ],
   "parser": "@typescript-eslint/parser",
-  "plugins": ["prettier", "@typescript-eslint"],
+  "plugins": ["prettier", "@typescript-eslint", "import"],
   "rules": {
-    "prettier/prettier": "warn",
-    "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": "warn",
     "no-console": "off",
-    "func-names": "off",
-    "no-process-exit": "off",
-    "object-shorthand": "off",
-    "class-methods-use-this": "off",
+    "no-unused-vars": "off",
     "@typescript-eslint/no-unused-expressions": "off",
-    "react-hooks/exhaustive-deps": "warn"
+    "prettier/prettier": "warn",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "react-hooks/exhaustive-deps": "warn",
+    "import/no-unresolved": "off",
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          ["sibling", "parent"],
+          "index",
+          "type",
+          "unknown"
+        ],
+        "newlines-between": "always"
+      }
+    ]
   }
 }

@@ -1,6 +1,7 @@
-import { auth } from "@/auth";
 import { useSession } from "next-auth/react";
 import { useTitle } from "react-use";
+
+import { auth } from "@/auth";
 import { Container, SidebarLayout } from "@/components/layout";
 
 import type { GetServerSidePropsContext } from "next";
