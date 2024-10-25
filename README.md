@@ -22,7 +22,7 @@ That's also the reason why a full-stack TS app makes sense for me.
 [x] Magic link login with Resend
 [x] Protected routes, api, and component templates
 [x] Useful hooks
-[x] Can deploy anywhere but best on Vercel
+[x] Pre-commit CI (Typecheck, Lint)
 [ ] Optional IndexedDB persistance
 [ ] PWA support
 [ ] Rich components like TipTap Editor,
