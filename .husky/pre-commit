@@ -1,1 +1,1 @@
-npx tsc && npm run lint --fix
+npx tsc && npm run lint:fix

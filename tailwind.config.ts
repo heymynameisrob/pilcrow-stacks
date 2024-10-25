@@ -46,6 +46,9 @@ const config: Config = {
       gridTemplateColumns: {
         "sidebar-layout": "minmax(auto, 300px) 1fr", // Sidebar, content
       },
+      zIndex: {
+        max: "999999",
+      },
     },
   },
   plugins: [tailwindcssAnimate],

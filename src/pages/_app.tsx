@@ -10,6 +10,10 @@ import { ThemeProvider } from "next-themes";
 import React from "react";
 
 import { IS_DEV } from "@/flags";
+import {
+  FeatureFlagManager,
+  FeatureFlagProvider,
+} from "@/components/feature-flags";
 
 import type { AppProps } from "next/app";
 
@@ -60,16 +64,24 @@ export default function App({
   return (
     <SessionProvider session={session}>
       <QueryClientProvider client={queryClient}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
+        <FeatureFlagProvider
+          initialFlags={[
+            { id: "test", enabled: false },
+            { id: "new-menu", enabled: true },
+          ]}
         >
-          <Tooltip.Provider delayDuration={200}>
-            <Component {...pageProps} />
-          </Tooltip.Provider>
-        </ThemeProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Tooltip.Provider delayDuration={200}>
+              <Component {...pageProps} />
+            </Tooltip.Provider>
+          </ThemeProvider>
+          <FeatureFlagManager />
+        </FeatureFlagProvider>
         <ReactQueryDevtools
           initialIsOpen={false}
           buttonPosition="bottom-right"
