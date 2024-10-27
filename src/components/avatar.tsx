@@ -1,7 +1,7 @@
 import React from "react";
 import * as AvatarPrimitive from "@radix-ui/react-avatar";
 
-import { cn, getAvatarColour, getInitialsFromFullName } from "@/utils";
+import { cn, getAvatarColour, getInitialsFromFullName } from "@/lib/utils";
 
 type AvatarProps = React.ComponentPropsWithoutRef<
   typeof AvatarPrimitive.Root

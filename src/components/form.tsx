@@ -11,7 +11,7 @@ import {
 } from "react-hook-form";
 
 import { Label } from "@/components/label";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 const Form = FormProvider;
 
@@ -153,17 +153,17 @@ const FormMessage = React.forwardRef<
   }
 
   return (
-    <p
+    <small
       ref={ref}
       id={formMessageId}
       className={cn(
-        "text-xs py-1 font-medium text-red-800 dark:text-red-500",
+        "block text-xs font-medium text-red-800 dark:text-red-500 py-1",
         className,
       )}
       {...props}
     >
       {body}
-    </p>
+    </small>
   );
 });
 FormMessage.displayName = "FormMessage";

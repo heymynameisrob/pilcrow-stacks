@@ -16,7 +16,7 @@ import {
   FormMessage,
 } from "@/components/form";
 import { Input } from "@/components/input";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email" }),
@@ -47,7 +47,7 @@ export function LoginForm() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     setState("submitting");
-    signIn("resend", { redirect: false, ...values }).then(() => {
+    signIn("email", { redirect: false, ...values }).then(() => {
       setState("success");
     });
     console.log(values);

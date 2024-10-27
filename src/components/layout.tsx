@@ -2,7 +2,8 @@ import { signOut } from "next-auth/react";
 
 import { Button } from "@/components/button";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
+import { UserMenu } from "@/components/user-menu";
 
 export function FullPageLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -43,7 +44,7 @@ export function SidebarLayout({ children }: { children: React.ReactNode }) {
           <strong>Next Starter</strong>
         </p>
         <div className="mt-auto flex items-center justify-between gap-4">
-          <ThemeToggle />
+          <UserMenu />
           <Button onClick={() => signOut()}>Logout</Button>
         </div>
       </nav>

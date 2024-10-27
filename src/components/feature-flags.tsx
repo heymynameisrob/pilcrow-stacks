@@ -4,7 +4,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 import { Checkbox } from "@/components/checkbox";
 import { Label } from "@/components/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/popover";
-import { IS_DEV } from "@/flags";
+import { IS_DEV } from "@/lib/flags";
 
 // Define the flag type
 

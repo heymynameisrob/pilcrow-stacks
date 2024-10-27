@@ -9,7 +9,7 @@ import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "next-themes";
 import React from "react";
 
-import { IS_DEV } from "@/flags";
+import { IS_DEV } from "@/lib/flags";
 import {
   FeatureFlagManager,
   FeatureFlagProvider,

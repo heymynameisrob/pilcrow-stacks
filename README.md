@@ -27,3 +27,12 @@ That's also the reason why a full-stack TS app makes sense for me.
 [ ] PWA support
 [ ] Rich components like TipTap Editor,
 [ ] Generic OpenAI routes with Instructor JS setup
+
+
+## Approaches
+There are several approaches to how I build applications contained. Everything is a learning process so these may change.
+
+- Caching is mostly handled client-side through in-memory or persisted (IndexedDB), managed by React Query.
+I find it easier to have the client control the caching and revalidation so I know that every request is fresh data that I need, and I don't make server requests (which cost on Vercel/Serverless).
+
+- Auth checks are made on every request. We use Redis (Vercel KV) for this as it's really fast and cheap for simpe session storage. We can use 1 database for all projects as long as we prefix the keys.

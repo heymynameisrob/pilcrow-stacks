@@ -1,34 +1,20 @@
 import { useSession } from "next-auth/react";
 import { useTitle } from "react-use";
+import { getServerSession } from "next-auth";
 
-import { auth } from "@/auth";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { Container, SidebarLayout } from "@/components/layout";
 
 import type { GetServerSidePropsContext } from "next";
 
-export async function getServerSideProps(ctx: GetServerSidePropsContext) {
-  const session = await auth(ctx);
-
-  if (!session)
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/login",
-      },
-    };
-
-  return {
-    props: {
-      isLoggedIn: true,
-    },
-  };
-}
-
-export default function Page({ isLoggedIn }: { isLoggedIn: boolean }) {
+export default function Page() {
+  // Props are passsed by default as set in __app.tsx
   const { data: session } = useSession();
+
   useTitle("Robs app");
 
-  if (!isLoggedIn) return null;
+  if (typeof window === "undefined") return null;
+  if (!session) return null;
 
   return (
     <SidebarLayout>
@@ -37,4 +23,22 @@ export default function Page({ isLoggedIn }: { isLoggedIn: boolean }) {
       </Container>
     </SidebarLayout>
   );
+}
+
+export async function getServerSideProps(ctx: GetServerSidePropsContext) {
+  const session = await getServerSession(ctx.req, ctx.res, authOptions);
+
+  // if (!session)
+  //   return {
+  //     redirect: {
+  //       permanent: false,
+  //       destination: "/login",
+  //     },
+  //   };
+
+  return {
+    props: {
+      session,
+    },
+  };
 }

@@ -1,7 +1,7 @@
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 import React, { PropsWithChildren } from "react";
 
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 type TooltipProps = PropsWithChildren<{
   content: string | React.ReactNode;

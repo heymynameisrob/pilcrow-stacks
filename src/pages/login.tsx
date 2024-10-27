@@ -1,12 +1,13 @@
-import { auth } from "@/auth";
+import { useSession } from "next-auth/react";
+import { getServerSession } from "next-auth";
+
 import { FullPageLayout } from "@/components/layout";
 import { LoginForm } from "@/components/login/login-form";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
 
 import type { GetServerSidePropsContext } from "next";
 
-export default function Page({ isLoggedIn }: { isLoggedIn: boolean }) {
-  if (isLoggedIn) return null;
-
+export default function Page() {
   return (
     <FullPageLayout>
       <LoginForm />
@@ -15,7 +16,7 @@ export default function Page({ isLoggedIn }: { isLoggedIn: boolean }) {
 }
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
-  const session = await auth(ctx);
+  const session = await getServerSession(ctx.req, ctx.res, authOptions);
 
   if (session)
     return {
@@ -27,7 +28,7 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
 
   return {
     props: {
-      isLoggedIn: false,
+      session,
     },
   };
 }

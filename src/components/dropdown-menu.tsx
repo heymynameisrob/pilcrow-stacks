@@ -2,7 +2,7 @@ import { CheckIcon, ChevronRightIcon } from "@heroicons/react/16/solid";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import * as React from "react";
 
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 const DropdownMenu = DropdownMenuPrimitive.Root;
 
@@ -100,14 +100,14 @@ const DropdownMenuCheckboxItem = React.forwardRef<
   <DropdownMenuPrimitive.CheckboxItem
     ref={ref}
     className={cn(
-      "relative flex cursor-default select-none items-center rounded-md py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-gray-3 data-[state=checked]:text-primary data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      "relative flex cursor-default select-none items-center rounded-md py-1.5 pr-8 pl-2 text-sm outline-none transition-colors focus:bg-gray-3 data-[state=checked]:text-primary data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       "dark:hover:bg-white/10 dark:focus:bg-white/10 dark:focus:shadow-[inset_0px_1px_0px_hsla(0_,0%_,100%_,.02)_,inset_0px_0px_0px_1px_hsla(0_,0%_,100%_,.02)_,0px_1px_2px_rgba(0_,0_,0_,.12)_,0px_2px_4px_rgba(0_,0_,0_,.08)_,0px_0px_0px_0.5px_rgba(0_,0_,0_,.24)]",
       className,
     )}
     checked={checked}
     {...props}
   >
-    <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+    <span className="absolute right-2 flex h-3.5 w-3.5 items-center justify-center">
       <DropdownMenuPrimitive.ItemIndicator>
         <CheckIcon className="h-4 w-4" />
       </DropdownMenuPrimitive.ItemIndicator>
@@ -125,13 +125,13 @@ const DropdownMenuRadioItem = React.forwardRef<
   <DropdownMenuPrimitive.RadioItem
     ref={ref}
     className={cn(
-      "relative flex cursor-default select-none items-center rounded-md py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-gray-3 data-[state=checked]:text-primary data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      "relative flex cursor-default select-none items-center rounded-md py-1.5 pr-8 pl-2 text-sm outline-none transition-colors text-secondary focus:bg-gray-3 data-[state=checked]:text-primary data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       "dark:hover:bg-white/10 dark:focus:bg-white/10 dark:focus:shadow-[inset_0px_1px_0px_hsla(0_,0%_,100%_,.02)_,inset_0px_0px_0px_1px_hsla(0_,0%_,100%_,.02)_,0px_1px_2px_rgba(0_,0_,0_,.12)_,0px_2px_4px_rgba(0_,0_,0_,.08)_,0px_0px_0px_0.5px_rgba(0_,0_,0_,.24)]",
       className,
     )}
     {...props}
   >
-    <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+    <span className="absolute right-2 flex h-3.5 w-3.5 items-center justify-center">
       <DropdownMenuPrimitive.ItemIndicator>
         <CheckIcon className="h-4 w-4" />
       </DropdownMenuPrimitive.ItemIndicator>

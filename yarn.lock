@@ -546,6 +546,13 @@
   dependencies:
     "@types/pg" "8.11.6"
 
+"@next-auth/upstash-redis-adapter@^3.0.4":
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/@next-auth/upstash-redis-adapter/-/upstash-redis-adapter-3.0.4.tgz#9769b6cec783c3142689fe252a47932f61824553"
+  integrity sha512-az9hFemtnSry7YAaVvxPEwGZSbnK8xiRLX/C5bDsM1ibQWSx6aIp7QY3Kk4NSdqU6LONkXnjndKKhrUnwEmfFw==
+  dependencies:
+    uuid "^8.3.2"
+
 "@next/env@15.0.1":
   version "15.0.1"
   resolved "https://registry.yarnpkg.com/@next/env/-/env-15.0.1.tgz#660fe9303e255cec112d3f4198d2897a24bc60b3"
@@ -1022,6 +1029,13 @@
     "@radix-ui/react-use-callback-ref" "1.1.0"
     "@radix-ui/react-use-controllable-state" "1.1.0"
 
+"@radix-ui/react-separator@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@radix-ui/react-separator/-/react-separator-1.1.0.tgz#ee0f4d86003b0e3ea7bc6ccab01ea0adee32663e"
+  integrity sha512-3uBAs+egzvJBDZAzvb/n4NxxOYpnspmWxO2u5NbZ8Y6FM/NdrGSF9bop3Cf6F6C71z1rTSn8KV0Fo2ZVd79lGA==
+  dependencies:
+    "@radix-ui/react-primitive" "2.0.0"
+
 "@radix-ui/react-slot@1.0.2":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@radix-ui/react-slot/-/react-slot-1.0.2.tgz#a9ff4423eade67f501ffb32ec22064bc9d3099ab"
@@ -1377,6 +1391,20 @@
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@ungap/structured-clone/-/structured-clone-1.2.0.tgz#756641adb587851b5ccb3e095daf27ae581c8406"
   integrity sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==
+
+"@upstash/redis@^1.34.0", "@upstash/redis@^1.34.3":
+  version "1.34.3"
+  resolved "https://registry.yarnpkg.com/@upstash/redis/-/redis-1.34.3.tgz#df0338f4983bba5141878e851be4fced494b44a0"
+  integrity sha512-VT25TyODGy/8ljl7GADnJoMmtmJ1F8d84UXfGonRRF8fWYJz7+2J6GzW+a6ETGtk4OyuRTt7FRSvFG5GvrfSdQ==
+  dependencies:
+    crypto-js "^4.2.0"
+
+"@vercel/kv@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@vercel/kv/-/kv-3.0.0.tgz#4579153536c9fc0ca8c52d3d7cfe944ccffd08c0"
+  integrity sha512-pKT8fRnfyYk2MgvyB6fn6ipJPCdfZwiKDdw7vB+HL50rjboEBHDVBEcnwfkEpVSp2AjNtoaOUH7zG+bVC/rvSg==
+  dependencies:
+    "@upstash/redis" "^1.34.0"
 
 "@vercel/postgres@^0.10.0":
   version "0.10.0"
@@ -1773,6 +1801,11 @@ cross-spawn@^7.0.0, cross-spawn@^7.0.2:
     path-key "^3.1.0"
     shebang-command "^2.0.0"
     which "^2.0.1"
+
+crypto-js@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/crypto-js/-/crypto-js-4.2.0.tgz#4d931639ecdfd12ff80e8186dba6af2c2e856631"
+  integrity sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==
 
 css-in-js-utils@^3.1.0:
   version "3.1.0"
@@ -3187,12 +3220,20 @@ next-auth@*:
     preact-render-to-string "^5.1.19"
     uuid "^8.3.2"
 
-next-auth@^5.0.0-beta.25:
-  version "5.0.0-beta.25"
-  resolved "https://registry.yarnpkg.com/next-auth/-/next-auth-5.0.0-beta.25.tgz#3a9f9734e1d8fa5ced545360f1afc24862cb92d5"
-  integrity sha512-2dJJw1sHQl2qxCrRk+KTQbeH+izFbGFPuJj5eGgBZFYyiYYtvlrBeUw1E/OJJxTRjuxbSYGnCTkUIRsIIW0bog==
+next-auth@^4.24.10:
+  version "4.24.10"
+  resolved "https://registry.yarnpkg.com/next-auth/-/next-auth-4.24.10.tgz#343d5de8067fde5dae1111ca6b7bef1fbe4d78fe"
+  integrity sha512-8NGqiRO1GXBcVfV8tbbGcUgQkAGsX4GRzzXXea4lDikAsJtD5KiEY34bfhUOjHLvr6rT6afpcxw2H8EZqOV6aQ==
   dependencies:
-    "@auth/core" "0.37.2"
+    "@babel/runtime" "^7.20.13"
+    "@panva/hkdf" "^1.0.2"
+    cookie "^0.7.0"
+    jose "^4.15.5"
+    oauth "^0.9.15"
+    openid-client "^5.4.0"
+    preact "^10.6.3"
+    preact-render-to-string "^5.1.19"
+    uuid "^8.3.2"
 
 next-themes@^0.3.0:
   version "0.3.0"
@@ -3226,6 +3267,11 @@ node-gyp-build@^4.3.0:
   version "4.8.2"
   resolved "https://registry.yarnpkg.com/node-gyp-build/-/node-gyp-build-4.8.2.tgz#4f802b71c1ab2ca16af830e6c1ea7dd1ad9496fa"
   integrity sha512-IRUxE4BVsHWXkV/SFOut4qTlagw2aM8T5/vnTsmrHJvVoKueJHRc/JaFND7QDDc61kLYUJ6qlZM3sqTSyx2dTw==
+
+nodemailer@^6.9.15:
+  version "6.9.15"
+  resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-6.9.15.tgz#57b79dc522be27e0e47ac16cc860aa0673e62e04"
+  integrity sha512-AHf04ySLC6CIfuRtRiEYtGEXgRfa6INgWGluDhnxTZhHSKvrBu7lc1VVchQ0d8nPc4cFaZoPq8vkyNoZr0TpGQ==
 
 normalize-path@^3.0.0, normalize-path@~3.0.0:
   version "3.0.0"
@@ -4532,6 +4578,11 @@ wrappy@1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
   integrity sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==
+
+wretch@^2.10.0:
+  version "2.10.0"
+  resolved "https://registry.yarnpkg.com/wretch/-/wretch-2.10.0.tgz#07bf3c2ceb1e43330ae46955b455d2b1034e3e55"
+  integrity sha512-umAgGsgEfWVm2GT9Gl+Uyl2AI0q1P8WqXMGiDbSf5QImZW7bdnUbTUrgXYzYH+VmtlM6RqwJQH7JNizSNwt6kw==
 
 ws@^8.17.1, ws@^8.18.0:
   version "8.18.0"
