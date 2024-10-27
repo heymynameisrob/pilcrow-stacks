@@ -3,7 +3,7 @@ import { useTitle } from "react-use";
 import { getServerSession } from "next-auth";
 
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
-import { Container, SidebarLayout } from "@/components/layout";
+import { AppLayout, Container, SidebarLayout } from "@/components/layout";
 
 import type { GetServerSidePropsContext } from "next";
 
@@ -17,11 +17,11 @@ export default function Page() {
   if (!session) return null;
 
   return (
-    <SidebarLayout>
+    <AppLayout>
       <Container>
         <h1>Welcome {session?.user?.email}</h1>
       </Container>
-    </SidebarLayout>
+    </AppLayout>
   );
 }
 

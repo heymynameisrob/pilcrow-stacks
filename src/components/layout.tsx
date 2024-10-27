@@ -24,8 +24,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           <strong>Next Starter</strong>
         </p>
         <div className="flex items-center justify-end gap-2">
-          <ThemeToggle />
-          <Button onClick={() => signOut()}>Logout</Button>
+          <UserMenu position="top" />
         </div>
       </nav>
       <div className="w-full h-full overflow-y-scroll">{children}</div>
@@ -44,8 +43,7 @@ export function SidebarLayout({ children }: { children: React.ReactNode }) {
           <strong>Next Starter</strong>
         </p>
         <div className="mt-auto flex items-center justify-between gap-4">
-          <UserMenu />
-          <Button onClick={() => signOut()}>Logout</Button>
+          <UserMenu position="bottom" />
         </div>
       </nav>
       <div className="w-full h-full overflow-y-scroll">{children}</div>
