@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm";
 import { getServerSession } from "next-auth";
 
-import { FullPageLayout } from "@/components/layout";
+import { FullPageLayout } from "@/primitives/layout";
 import { LoginForm } from "@/components/login/login-form";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { db, schema } from "@/lib/db";

@@ -4,8 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 import ky from "ky";
 import Picker from "@emoji-mart/react";
 
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/popover";
-import { Toggle } from "@/components/toggle";
+import { Popover, PopoverContent, PopoverTrigger } from "@/primitives/popover";
+import { Toggle } from "@/primitives/toggle";
 import { useDoc } from "@/queries/docs";
 import { cn } from "@/lib/utils";
 import { REVALIDATE_DAY } from "@/lib/fetch";
@@ -24,7 +24,6 @@ export const EmojiPicker = ({
   className,
 }: EmojiPickerProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [_emoji, setEmoji] = useState<string>(emoji);
   const { saveDoc } = useDoc(docId);
 
   const { data } = useQuery({
@@ -52,12 +51,12 @@ export const EmojiPicker = ({
           }}
           data-emoji
           className={cn(
-            "h-11 w-11 rounded-lg bg-gray-2 p-px !text-sm",
+            "h-9 w-9 rounded-lg bg-gray-3 dark:bg-gray-2 p-px !text-base",
             disabled && "pointer-events-none",
             className,
           )}
         >
-          {_emoji || "📝"}
+          {emoji || "📝"}
         </Toggle>
       </PopoverTrigger>
       <PopoverContent
@@ -72,10 +71,9 @@ export const EmojiPicker = ({
               id: docId,
               emoji: emoji.native,
             });
-            setEmoji(emoji.native);
             setIsOpen(false);
           }}
-          previewEmoji={_emoji}
+          previewEmoji={emoji}
           disabled={disabled}
         />
       </PopoverContent>

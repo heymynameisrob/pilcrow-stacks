@@ -24,13 +24,13 @@ export function getInitialsFromFullName(name: string | null) {
 export function getAvatarColour(name: string) {
   const initial = name.slice(0, 1).toLowerCase();
 
-  if (/[a-d]/i.test(initial)) return "bg-red-200 text-red-900";
-  if (/[e-h]/i.test(initial)) return "bg-green-200 text-green-900";
-  if (/[i-l]/i.test(initial)) return "bg-yellow-200 text-yellow-900";
-  if (/[m-q]/i.test(initial)) return "bg-blue-200 text-blue-900";
-  if (/[r-t]/i.test(initial)) return "bg-indigo-200 text-indigo-900";
-  if (/[u-w]/i.test(initial)) return "bg-purple-200 text-purple-900";
-  if (/[x-z]/i.test(initial)) return "bg-pink-200 text-pink-900";
+  if (/[a-d]/i.test(initial)) return "bg-red-500 text-red-900";
+  if (/[e-h]/i.test(initial)) return "bg-green-500 text-green-900";
+  if (/[i-l]/i.test(initial)) return "bg-yellow-500 text-yellow-900";
+  if (/[m-q]/i.test(initial)) return "bg-blue-500 text-blue-900";
+  if (/[r-t]/i.test(initial)) return "bg-indigo-500 text-indigo-900";
+  if (/[u-w]/i.test(initial)) return "bg-purple-500 text-purple-900";
+  if (/[x-z]/i.test(initial)) return "bg-pink-500 text-pink-900";
 
   return "bg-gray-3 text-primary";
 }

@@ -9,4 +9,20 @@ const pool = new Pool({
 });
 const db = drizzle({ client: pool, schema: { ...schema } });
 
+export const idbConfig = {
+  databaseName: "pilcrow-db",
+  version: 1,
+  stores: [
+    {
+      name: "docs",
+      id: { keyPath: "id", autoIncrement: true },
+      indices: [
+        { name: "docId", keyPath: "docId" },
+        { name: "title", keyPath: "title" },
+        { name: "emoji", keyPath: "emoji" },
+      ],
+    },
+  ],
+};
+
 export { db, schema };

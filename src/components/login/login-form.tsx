@@ -6,7 +6,7 @@ import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { Button } from "@/components/button";
+import { Button } from "@/primitives/button";
 import {
   Form,
   FormControl,
@@ -14,8 +14,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/form";
-import { Input } from "@/components/input";
+} from "@/primitives/form";
+import { Input } from "@/primitives/input";
 import { cn } from "@/lib/utils";
 
 const formSchema = z.object({

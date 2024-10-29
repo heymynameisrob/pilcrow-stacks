@@ -1,6 +1,6 @@
 // API Route Example
 // https://nextjs.org/docs/api-routes/introduction
-import { eq, desc, asc } from "drizzle-orm";
+import { eq, desc } from "drizzle-orm";
 
 import { auth } from "@/lib/auth";
 import { db, schema } from "@/lib/db";

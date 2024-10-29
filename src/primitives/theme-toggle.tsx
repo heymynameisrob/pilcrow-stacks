@@ -6,16 +6,16 @@ import {
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
-import { Button } from "@/components/button";
+import { Button } from "@/primitives/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
-} from "@/components/dropdown-menu";
-import { Tooltip } from "@/components/tooltip";
-import { Avatar } from "@/components/avatar";
+} from "@/primitives/dropdown-menu";
+import { Tooltip } from "@/primitives/tooltip";
+import { Avatar } from "@/primitives/avatar";
 
 export function ThemeToggle() {
   const [isMounted, setIsMounted] = useState<boolean>(false);

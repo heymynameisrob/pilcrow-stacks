@@ -14,6 +14,7 @@ import {
   FeatureFlagManager,
   FeatureFlagProvider,
 } from "@/components/feature-flags";
+import { CommandMenu } from "@/components/command-menu";
 
 import type { AppProps } from "next/app";
 
@@ -78,6 +79,7 @@ export default function App({
           >
             <Tooltip.Provider delayDuration={200}>
               <Component {...pageProps} />
+              <CommandMenu />
             </Tooltip.Provider>
           </ThemeProvider>
           <FeatureFlagManager />

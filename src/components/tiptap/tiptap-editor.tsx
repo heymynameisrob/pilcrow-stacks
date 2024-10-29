@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useHotkeys } from "react-hotkeys-hook";
 import ky from "ky";
 import { Editor, EditorContent, useEditor } from "@tiptap/react";
 import { EditorState } from "@tiptap/pm/state";
-import { Loader } from "lucide-react";
 
+import { useOpenDocsStore, useReadOnly } from "@/stores/docs";
 import { defaultExtensions } from "@/components/tiptap/extensions";
 import { Mention } from "@/components/tiptap/extensions/mentions/mention";
 import { defaultEditorProps } from "@/components/tiptap/tiptap-props";
@@ -21,11 +22,19 @@ export const TipTapEditor = ({
   handleOnSave: (editor: Editor) => void;
 }) => {
   // Local states
-  const [ready, setReady] = useState<boolean>(false);
+  const [focused, setFocused] = useState<boolean>(false);
   const previousState = useRef<EditorState>();
 
-  // Queries
+  // Queries & Stores
   const { removeBacklink } = useBacklinks();
+  const { closeDoc } = useOpenDocsStore();
+  const { readOnlyMode } = useReadOnly();
+
+  useHotkeys("Esc", () => closeDoc(doc.id), {
+    enabled: focused,
+    preventDefault: true,
+    enableOnContentEditable: true,
+  });
 
   /**
    * Setup the editor with the default extensions and editor props.
@@ -39,7 +48,7 @@ export const TipTapEditor = ({
       Mention.configure({
         HTMLAttributes: {
           class:
-            "bg-ui-low border border-secondary px-1 py-0.5 rounded-lg underline text-accent font-normal cursor-pointer hover:bg-ui",
+            "bg-gray-2 border border-secondary px-1 py-0.5 rounded-lg underline text-accent font-normal cursor-pointer hover:bg-gray-3",
         },
         suggestion: {
           items: async ({ query }: { query: string }) => {
@@ -73,8 +82,10 @@ export const TipTapEditor = ({
     editorProps: {
       ...defaultEditorProps,
     },
+    onFocus: () => setFocused(true),
+    onBlur: () => setFocused(false),
     onUpdate: ({ editor }) => {
-      if (!editor || !ready) return;
+      if (!editor) return;
 
       checkForNodeDeletions({ editor });
       if (handleOnSave) handleOnSave(editor);
@@ -158,25 +169,23 @@ export const TipTapEditor = ({
    */
 
   useEffect(() => {
-    if (!editor || ready) return;
+    if (editor) {
+      editor.setOptions({ editable: !readOnlyMode });
+      editor.commands.focus("end");
+    }
+  }, [editor, readOnlyMode]);
 
-    editor.setEditable(true);
-    doc.content && editor.commands.focus("end");
-    setReady(true);
-  }, [editor, doc, ready]);
-
-  if (!ready)
-    return (
-      <div className="flex h-full w-full items-center justify-center">
-        <Loader className="h-4 w-4 animate-spin text-primary" />
-      </div>
-    );
+  if (!editor) return null;
 
   return (
     editor && (
       <>
         <TipTapMenu editor={editor} />
-        <EditorContent editor={editor} className="prose max-w-prose h-full" />
+        <EditorContent
+          disabled={readOnlyMode}
+          editor={editor}
+          className="prose max-w-prose h-full"
+        />
       </>
     )
   );

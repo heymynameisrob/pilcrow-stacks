@@ -12,7 +12,7 @@ import { useTitle } from "react-use";
 import { eq } from "drizzle-orm";
 
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
-import { FullPageLayout } from "@/components/layout";
+import { FullPageLayout } from "@/primitives/layout";
 import {
   Form,
   FormControl,
@@ -20,10 +20,10 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/form";
-import { Input } from "@/components/input";
-import { Button } from "@/components/button";
-import { Separator } from "@/components/separator";
+} from "@/primitives/form";
+import { Input } from "@/primitives/input";
+import { Button } from "@/primitives/button";
+import { Separator } from "@/primitives/separator";
 import { api } from "@/lib/fetch";
 import { db, schema } from "@/lib/db";
 

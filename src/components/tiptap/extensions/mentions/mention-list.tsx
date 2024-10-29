@@ -1,4 +1,3 @@
-"use client";
 import {
   useState,
   useCallback,
@@ -21,11 +20,10 @@ interface MentionItems extends Doc {
 
 export const MentionList = ({
   items,
-  editor,
   command,
 }: {
   items: Array<MentionItems>;
-  editor: Editor;
+  editor?: Editor;
   command: any;
 }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -38,7 +36,6 @@ export const MentionList = ({
       if (item) {
         // Document being @ mentoned
         command({ id: item.id, label: item.title });
-        console.log({ target: item.id, source: item.source });
         newBacklink({ target: item.id!, source: item.source });
       }
     },

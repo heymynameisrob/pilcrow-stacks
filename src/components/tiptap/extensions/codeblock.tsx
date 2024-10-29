@@ -5,7 +5,7 @@ import { useHotkeys } from "react-hotkeys-hook";
 import { type Editor, NodeViewContent, NodeViewWrapper } from "@tiptap/react";
 import { ClipboardIcon as CopyIcon } from "@heroicons/react/16/solid";
 
-import { Button } from "@/components/button";
+import { Button } from "@/primitives/button";
 
 export const CodeBlockComponent = ({
   node,

@@ -2,7 +2,6 @@ import {
   text,
   pgTableCreator,
   date,
-  uuid,
   foreignKey,
   jsonb,
   primaryKey,

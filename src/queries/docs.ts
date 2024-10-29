@@ -1,7 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
+import { format } from "date-fns";
 
 import { api, REVALIDATE_DAY } from "@/lib/fetch";
+import { useOpenDocsStore } from "@/stores/docs";
 
 import type { ApiReturnType, Doc } from "@/lib/types";
 
@@ -48,7 +50,7 @@ export function useDoc(docId: string) {
 
 export function useDocs() {
   const { data: session } = useSession();
-
+  const { openDoc } = useOpenDocsStore();
   const queryClient = useQueryClient();
 
   const { data, error, isLoading } = useQuery({
@@ -69,7 +71,6 @@ export function useDocs() {
         .post("/api/docs/new")
         .json();
       if (error) throw Error(error.message);
-      console.log("API Response", data);
       return data;
     },
     onMutate: () => {
@@ -80,35 +81,26 @@ export function useDocs() {
             ...oldData,
             {
               id: Math.random(),
-              title: "New document",
+              title: format(new Date(), "mm DD YY"),
               emoji: "📝",
             },
           ];
         },
       );
     },
-    onSuccess: () => {
+    onSuccess: (data: Doc | null) => {
+      if (!data) return null;
+      openDoc(data.id);
       queryClient.invalidateQueries({
         queryKey: ["/api/docs", session?.user.id],
       });
     },
   });
 
-  const openDoc = (doc: Partial<Doc>) => {
-    queryClient.setQueryData(
-      ["/api/docs", session?.user.id],
-      (oldData: Array<Partial<Doc>>) => {
-        const filteredData = oldData.filter((d) => doc.id !== d.id);
-        return [...filteredData, doc];
-      },
-    );
-  };
-
   return {
     docs: data || null,
     loading: isLoading,
     error,
     newDoc,
-    openDoc,
   };
 }

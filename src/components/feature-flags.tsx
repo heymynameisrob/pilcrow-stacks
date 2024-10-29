@@ -1,9 +1,9 @@
 import { FlagIcon } from "@heroicons/react/20/solid";
 import { createContext, useContext, useState, useEffect } from "react";
 
-import { Checkbox } from "@/components/checkbox";
-import { Label } from "@/components/label";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/popover";
+import { Checkbox } from "@/primitives/checkbox";
+import { Label } from "@/primitives/label";
+import { Popover, PopoverContent, PopoverTrigger } from "@/primitives/popover";
 import { IS_DEV } from "@/lib/flags";
 
 // Define the flag type

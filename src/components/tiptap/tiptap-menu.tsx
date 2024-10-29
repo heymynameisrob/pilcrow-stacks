@@ -18,9 +18,9 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/dropdown-menu";
+} from "@/primitives/dropdown-menu";
 import { cn } from "@/lib/utils";
-import { Toggle } from "@/components/toggle";
+import { Toggle } from "@/primitives/toggle";
 
 import "tippy.js/animations/scale.css";
 

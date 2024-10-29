@@ -2,7 +2,7 @@ import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { CogIcon, Squares2X2Icon, BugAntIcon } from "@heroicons/react/16/solid";
 
-import { Button } from "@/components/button";
+import { Button } from "@/primitives/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,8 +11,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/dropdown-menu";
-import { Tooltip } from "@/components/tooltip";
+} from "@/primitives/dropdown-menu";
+import { Tooltip } from "@/primitives/tooltip";
 import { Avatar } from "@/components/gradient-avatar";
 import { useUser } from "@/queries/user";
 

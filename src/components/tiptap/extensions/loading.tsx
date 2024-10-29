@@ -5,7 +5,7 @@ import { NodeViewWrapper, ReactNodeViewRenderer } from "@tiptap/react";
 import { mergeAttributes, Node } from "@tiptap/core";
 import { Loader } from "lucide-react";
 
-import { AspectRatio } from "@/components/aspect-ratio";
+import { AspectRatio } from "@/primitives/aspect-ratio";
 
 const Component = () => {
   return (

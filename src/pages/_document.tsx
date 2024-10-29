@@ -1,6 +1,6 @@
 import { Html, Head, Main, NextScript } from "next/document";
 
-import { Toaster } from "@/components/sonner";
+import { Toaster } from "@/primitives/sonner";
 
 export default function Document() {
   return (
