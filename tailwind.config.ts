@@ -1,4 +1,5 @@
 import tailwindcssAnimate from "tailwindcss-animate";
+import tailwindTypography from "@tailwindcss/typography";
 
 import type { Config } from "tailwindcss";
 
@@ -49,8 +50,30 @@ const config: Config = {
       zIndex: {
         max: "999999",
       },
+      typography: () => ({
+        DEFAULT: {
+          css: {
+            "--tw-prose-body": "var(--gray-11)",
+            "--tw-prose-headings": "var(--gray-12)",
+            "--tw-prose-lead": "var(--gray-12)",
+            "--tw-prose-links": "var(--gray-12)",
+            "--tw-prose-bold": "var(--gray-12)",
+            "--tw-prose-counters": "var(--gray-11)",
+            "--tw-prose-bullets": "var(--gray-9)",
+            "--tw-prose-hr": "var(--color-border)",
+            "--tw-prose-quotes": "var(--gray-12)",
+            "--tw-prose-quote-borders": "var(--color-border)",
+            "--tw-prose-captions": "var(--gray-11)",
+            "--tw-prose-code": "var(--gray-12)",
+            "--tw-prose-pre-code": "var(--gray-12)",
+            "--tw-prose-pre-bg": "var(--gray-1)",
+            "--tw-prose-th-borders": "var(--color-border)",
+            "--tw-prose-td-borders": "var(--color-border)",
+          },
+        },
+      }),
     },
   },
-  plugins: [tailwindcssAnimate],
+  plugins: [tailwindcssAnimate, tailwindTypography],
 };
 export default config;

@@ -2,13 +2,14 @@ import {
   text,
   pgTableCreator,
   date,
-  serial,
   uuid,
   foreignKey,
-  boolean,
+  jsonb,
+  primaryKey,
 } from "drizzle-orm/pg-core";
+import { nanoid } from "nanoid";
 
-const pgTable = pgTableCreator((name) => `nextstarter_${name}`);
+const pgTable = pgTableCreator((name) => `pilcrowstacks_${name}`);
 
 /**
  * Setup for Magic Link login
@@ -23,15 +24,17 @@ export const users = pgTable("user", {
   image: text("image"),
 });
 
-export const posts = pgTable(
-  "posts",
+export const docs = pgTable(
+  "docs",
   {
-    id: serial("id").primaryKey(),
-    title: text(),
-    date: date().defaultNow(),
-    content: text(),
-    user: uuid("user_id"),
-    pubic: boolean().default(false),
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => nanoid()),
+    title: text("title"),
+    emoji: text("emoji"),
+    content: jsonb("content"),
+    lastEdited: date("last_edited").defaultNow(),
+    user: text("user_id"),
   },
   (table) => {
     return {
@@ -44,4 +47,23 @@ export const posts = pgTable(
         .onDelete("cascade"),
     };
   },
+);
+
+export const backlinks = pgTable(
+  "backlinks",
+  {
+    user: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    source: text("source_id")
+      .notNull()
+      .references(() => docs.id, { onDelete: "cascade" }),
+    target: text("target_id")
+      .notNull()
+      .references(() => docs.id, { onDelete: "cascade" }),
+  },
+  (table) => ({
+    // Composite primary key of both columns to prevent duplicate backlinks
+    pk: primaryKey({ columns: [table.source, table.target] }),
+  }),
 );

@@ -1,9 +1,5 @@
-import { signOut } from "next-auth/react";
-
-import { Button } from "@/components/button";
-import { ThemeToggle } from "@/components/theme-toggle";
-import { cn } from "@/lib/utils";
 import { UserMenu } from "@/components/user-menu";
+import { cn } from "@/lib/utils";
 
 export function FullPageLayout({ children }: { children: React.ReactNode }) {
   return (

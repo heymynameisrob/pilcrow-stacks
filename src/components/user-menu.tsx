@@ -1,4 +1,3 @@
-import { useTheme } from "next-themes";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { CogIcon, Squares2X2Icon, BugAntIcon } from "@heroicons/react/16/solid";
@@ -39,10 +38,7 @@ export function UserMenu({
           </Button>
         </DropdownMenuTrigger>
       </Tooltip>
-      <DropdownMenuContent
-        side={position === "top" ? "bottom" : "top"}
-        align="end"
-      >
+      <DropdownMenuContent side="top" align="start">
         <DropdownMenuLabel className="flex flex-col">
           <small>{user.name!}</small>
           <small className="text-secondary font-normal">{user.email}</small>

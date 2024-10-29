@@ -2,7 +2,7 @@ import React from "react";
 
 export function Key({ children }: { children: React.ReactNode }) {
   return (
-    <kbd className="inline-flex justify-center items-center w-5 h-5 px-0.5 py-px rounded bg-gray-2 text-primary text-xs font-semibold font-sans dark:bg-gray-3">
+    <kbd className="inline-flex justify-center items-center w-5 h-5 px-0.5 py-px rounded border shadow-sm bg-gray-2 text-primary text-xs font-semibold font-sans dark:bg-gray-6">
       {children}
     </kbd>
   );

@@ -8,5 +8,5 @@ export default defineConfig({
   dbCredentials: {
     url: process.env.POSTGRES_URL!,
   },
-  tablesFilter: ["nextstarter_*"],
+  tablesFilter: ["pilcrowstacks_*"],
 });

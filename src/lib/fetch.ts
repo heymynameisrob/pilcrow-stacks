@@ -7,7 +7,7 @@ export const REVALIDATE_MIN = 60000; // 1 min
 
 export const api = ky.extend({
   hooks: {
-    beforeRequest: [(req) => console.log("Requesting", req.url)],
-    afterResponse: [(req) => console.log("Responded", req.url)],
+    // beforeRequest: [(req) => console.log("Requesting", req.url)],
+    // afterResponse: [(req) => console.log("Responded", req.url)],
   },
 });

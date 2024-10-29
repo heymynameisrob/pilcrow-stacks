@@ -5,14 +5,8 @@ import { eq } from "drizzle-orm";
 import { auth } from "@/lib/auth";
 import { db, schema } from "@/lib/db";
 
-import type { User } from "@/lib/types";
+import type { Backlink } from "@/lib/types";
 import type { NextApiRequest, NextApiResponse } from "next";
-
-export const config = {
-  // Specifies the maximum allowed duration for this function to execute (in seconds)
-  // Increase for expensive or long functions (e.g AI)
-  maxDuration: 5,
-};
 
 export default async function handler(
   req: NextApiRequest,
@@ -46,51 +40,34 @@ export default async function handler(
   return res.status(200).json(json);
 }
 
-/**
- * 02. Server Function
- * Abstact database queries into seperate functions to keep the API route cleaner
- * In most cases, you just need to update these functions and leave the rest
- */
 async function getData(userId: string) {
   try {
     const data = await db
       .select({
-        name: schema.users.name,
-        email: schema.users.email,
-        id: schema.users.id,
+        target: schema.backlinks.target,
+        source: schema.backlinks.source,
       })
-      .from(schema.users)
-      .where(eq(schema.users.id, userId));
+      .from(schema.backlinks)
+      .where(eq(schema.backlinks.user, userId));
 
     return { data, status: 200, error: null };
   } catch (error) {
-    console.error("Error fetching user profile:", error);
-    return { data: null, status: 500, error: "Failed to fetch user profile" };
+    console.error("Error fetching backlinks:", error);
+    return { data: null, status: 500, error: "Failed to fetch backlinks" };
   }
 }
 
-async function saveData(userId: string, data: Partial<User>) {
+async function saveData(userId: string, data: Backlink) {
   try {
     const res = await db
-      .update(schema.users)
-      .set(data)
-      .where(eq(schema.users.id, userId))
+      .insert(schema.backlinks)
+      .values(data)
       .returning()
       .then((res) => res[0]);
-    return res;
+    console.log("backlinks", res);
+    return { data: res, status: 200 };
   } catch (err: unknown) {
-    console.error("Error fetching user profile:", err);
-    return { data: null, status: 500, error: "Failed to save user profile" };
+    console.error("Error saving backlinks:", err);
+    return { data: null, status: 500, error: "Failed to save backlink" };
   }
 }
-
-// Public - Only EVER set cache-control headers on public data
-// Everything is private, no-store by default as most routes are user-session based
-// This is general use SWR (stale-while-revalidate) that'll do for most public-data purposes
-// It sets a cache with Vercel CDN for 7 days, after that any requests trigger a revalidation
-// Use this instead of Redis
-//
-// res.setHeader(
-//   "Cache-Control",
-//   "public, max-age=604800, stale-while-revalidate=86400",
-// );
