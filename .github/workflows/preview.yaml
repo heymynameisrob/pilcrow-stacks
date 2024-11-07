@@ -15,7 +15,7 @@ jobs:
         with:
           node-version: 20
       - name: Install Dependencies
-        run: npm install
+        run: yarn install
 
   Check:
     needs: Setup
@@ -26,11 +26,11 @@ jobs:
         with:
           node-version: 20
       - name: Install Dependencies
-        run: npm install
+        run: yarn install
       - name: Type Check
-        run: npm run tsc
+        run: yarn tsc
       - name: Lint
-        run: npm run lint
+        run: yarn lint
 
   Database:
     needs: Check
@@ -41,9 +41,9 @@ jobs:
         with:
           node-version: 20
       - name: Install Dependencies
-        run: npm install
+        run: yarn install
       - name: Push DB Changes
-        run: npm run db:push
+        run: yarn db:push
 
   Deploy:
     needs: Database
@@ -54,9 +54,9 @@ jobs:
         with:
           node-version: 20
       - name: Install Dependencies
-        run: npm install
+        run: yarn install
       - name: Install Vercel CLI
-        run: npm install --global vercel@latest
+        run: yarn global add vercel@latest
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
       - name: Build Project Artifacts
