@@ -78,43 +78,8 @@ jobs:
       - name: Lint
         run: yarn run lint
 
-  Database:
-    needs: Check
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 20
-
-      - name: Configure Yarn
-        run: |
-          yarn config set '@tiptap-pro:registry' 'https://registry.tiptap.dev'
-          yarn config set '//registry.tiptap.dev/:_authToken' '${{ secrets.TIPTAP_PRO_TOKEN }}'
-
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
-
-      - uses: actions/cache@v3
-        id: yarn-cache
-        with:
-          path: |
-            ${{ steps.yarn-cache-dir-path.outputs.dir }}
-            node_modules
-            .next
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-
-      - name: Push DB Changes
-        run: yarn run db:push
-        env:
-          POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
-
   Deploy:
-    needs: Database
+    needs: Check
     runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     steps:
