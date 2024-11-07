@@ -19,12 +19,12 @@ jobs:
         with:
           node-version: 20
 
-      - name: Create .npmrc file
+      - name: Create .npmrc for Tiptap
         run: |
-          echo "@tiptap-pro:registry=https://registry.tiptap.dev/" > .npmrc
-          echo "//registry.tiptap.dev/:_authToken=${TIPTAP_PRO_TOKEN}" >> .npmrc
-        env:
-          TIPTAP_PRO_TOKEN: ${{ secrets.TIPTAP_PRO_TOKEN }}
+          cat << EOF > .npmrc
+          @tiptap-pro:registry=https://registry.tiptap.dev/
+          //registry.tiptap.dev/:_authToken=${{ secrets.TIPTAP_PRO_TOKEN }}
+          EOF
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
@@ -54,12 +54,12 @@ jobs:
         with:
           node-version: 20
 
-      - name: Create .npmrc file
+      - name: Create .npmrc for Tiptap
         run: |
-          echo "@tiptap-pro:registry=https://registry.tiptap.dev/" > .npmrc
-          echo "//registry.tiptap.dev/:_authToken=${TIPTAP_PRO_TOKEN}" >> .npmrc
-        env:
-          TIPTAP_PRO_TOKEN: ${{ secrets.TIPTAP_PRO_TOKEN }}
+          cat << EOF > .npmrc
+          @tiptap-pro:registry=https://registry.tiptap.dev/
+          //registry.tiptap.dev/:_authToken=${{ secrets.TIPTAP_PRO_TOKEN }}
+          EOF
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
@@ -92,12 +92,12 @@ jobs:
         with:
           node-version: 20
 
-      - name: Create .npmrc file
+      - name: Create .npmrc for Tiptap
         run: |
-          echo "@tiptap-pro:registry=https://registry.tiptap.dev/" > .npmrc
-          echo "//registry.tiptap.dev/:_authToken=${TIPTAP_PRO_TOKEN}" >> .npmrc
-        env:
-          TIPTAP_PRO_TOKEN: ${{ secrets.TIPTAP_PRO_TOKEN }}
+          cat << EOF > .npmrc
+          @tiptap-pro:registry=https://registry.tiptap.dev/
+          //registry.tiptap.dev/:_authToken=${{ secrets.TIPTAP_PRO_TOKEN }}
+          EOF
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
@@ -127,12 +127,12 @@ jobs:
         with:
           node-version: 20
 
-      - name: Create .npmrc file
+      - name: Create .npmrc for Tiptap
         run: |
-          echo "@tiptap-pro:registry=https://registry.tiptap.dev/" > .npmrc
-          echo "//registry.tiptap.dev/:_authToken=${TIPTAP_PRO_TOKEN}" >> .npmrc
-        env:
-          TIPTAP_PRO_TOKEN: ${{ secrets.TIPTAP_PRO_TOKEN }}
+          cat << EOF > .npmrc
+          @tiptap-pro:registry=https://registry.tiptap.dev/
+          //registry.tiptap.dev/:_authToken=${{ secrets.TIPTAP_PRO_TOKEN }}
+          EOF
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
