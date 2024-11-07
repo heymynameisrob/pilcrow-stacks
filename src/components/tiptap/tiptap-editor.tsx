@@ -121,6 +121,8 @@ export const TipTapEditor = ({
         }
       });
 
+      if (mentionNodes.length === 0) return;
+
       previousState.current = editor.state;
 
       prevMentionNodes.forEach((node: any) => {
@@ -129,7 +131,7 @@ export const TipTapEditor = ({
         }
       });
     },
-    [removeBacklink, doc],
+    [removeBacklink, doc.id],
   );
 
   /**
