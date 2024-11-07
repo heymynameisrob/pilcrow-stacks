@@ -91,13 +91,9 @@ export const MentionList = ({
       id="mention"
       ref={ref}
       className={cn(
-        "z-50 w-72 overflow-hidden rounded-lg border bg-gray-1 p-1 text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
-        "dark:bg-gray-3 dark:shadow-[0px_0px_0px_0.5px_rgba(0,0,0,1),_0px_4px_4px_rgba(0,0,0,0.24)]",
+        "z-50 h-auto max-h-[240px] w-64 overflow-y-auto rounded-lg border bg-gray-1 p-1 text-primary shadow-md animate-in animate-out dark:shadow-[0px_0px_0px_0.5px_rgba(0,0,0,1),_0px_4px_4px_rgba(0,0,0,0.24)]",
       )}
     >
-      <div className="flex px-1 py-1 text-left">
-        <span className="font-bold uppercase text-gray-7 text-xs">Notes</span>
-      </div>
       {items.length ? (
         items.map((item: any, index: number) => {
           return (
@@ -111,7 +107,7 @@ export const MentionList = ({
           );
         })
       ) : (
-        <div className="text-center text-muted">No notes found</div>
+        <div className="text-center text-muted">No docs found</div>
       )}
     </div>
   );

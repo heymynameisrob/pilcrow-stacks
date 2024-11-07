@@ -3,6 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
+import { Tooltip } from "@/primitives/tooltip";
 
 const buttonVariants = cva(
   "inline-flex items-center whitespace-nowrap justify-center rounded-lg text-sm leading-4 font-medium transition-colors outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:opacity-50 disabled:pointer-events-none active:scale-[0.98]",
@@ -39,8 +40,21 @@ export interface ButtonProps
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  ({ className, variant, size, title, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
+
+    if (title) {
+      return (
+        <Tooltip content={title}>
+          <Comp
+            className={cn(buttonVariants({ variant, size, className }))}
+            ref={ref}
+            {...props}
+          />
+        </Tooltip>
+      );
+    }
+
     return (
       <Comp
         className={cn(buttonVariants({ variant, size, className }))}

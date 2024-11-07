@@ -78,8 +78,9 @@ export function Editor({ docId }: { docId: string }) {
     >
       <Button
         size="icon"
+        title="Close"
         variant="ghost"
-        className="absolute top-0 right-0"
+        className="absolute top-1 right-1"
         onClick={() => closeDoc(doc.id)}
       >
         <XMarkIcon className="w-4 h-4 opacity-60" />

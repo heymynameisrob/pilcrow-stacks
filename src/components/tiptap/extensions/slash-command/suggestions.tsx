@@ -1,57 +1,72 @@
 import { ReactNode } from "react";
 import {
-  CheckSquare as CheckBoxIcon,
-  CodeIcon,
+  CheckSquare,
+  Heading1Icon,
   Heading2Icon,
   Heading3Icon,
-  ImageIcon,
-  InfoIcon,
-  ListIcon,
-  SparkleIcon as MagicWandIcon,
-  SquareDashed as MixIcon,
-  QuoteIcon,
   TextIcon,
 } from "lucide-react";
+import {
+  InformationCircleIcon,
+  ListBulletIcon,
+  CodeBracketSquareIcon,
+  SquaresPlusIcon,
+} from "@heroicons/react/16/solid";
 
-import { uploadEditorImage } from "@/components/tiptap/extensions/image-upload";
 import { getEmbedUrl } from "@/lib/editor";
+import { QuoteIcon } from "@radix-ui/react-icons";
+import { NumberedListIcon } from "@heroicons/react/16/solid";
+import { MinusIcon } from "@heroicons/react/16/solid";
+import { AtSymbolIcon } from "@heroicons/react/16/solid";
 
 export type CommandItemProps = {
   id: string;
   title: string;
-  description: string;
-  category: string;
   icon: ReactNode;
+  shortcut?: string;
 };
 
 export const getSuggestionItems = ({ query }: { query: string }) => {
   return [
     {
-      id: "ai-complete",
-      title: "Continue writing",
-      category: "AI",
-      description: "Use AI to expand your thoughts",
-      searchTerms: ["gpt", "ai"],
-      icon: <MagicWandIcon />,
+      id: "task-list",
+      title: "To-do List",
+      shortcut: "[ ]",
+      searchTerms: ["todo", "task", "list"],
+      icon: <CheckSquare size={16} strokeWidth={2} absoluteStrokeWidth />,
+      command: ({ editor, range }: any) =>
+        editor.chain().focus().deleteRange(range).toggleTaskList().run(),
     },
     {
-      id: "strapline",
-      title: "Strapline",
-      category: "Base",
-      description: "A subtitle for your document",
-      searchTerms: ["base", "subtitle", "strapline"],
-      icon: <TextIcon />,
+      id: "text",
+      title: "Text",
+      searchTerms: ["text", "p"],
+      icon: <TextIcon size={16} strokeWidth={2} absoluteStrokeWidth />,
       command: ({ editor, range }: any) => {
-        editor.chain().focus().deleteRange(range).setStrapline().run();
+        editor.chain().focus().deleteRange(range).setNode("paragraph").run();
+      },
+    },
+    {
+      id: "heading1",
+      title: "Heading 1",
+      searchTerms: ["base", "heading", "medium", "h1", "#"],
+      shortcut: "#",
+      icon: <Heading1Icon size={16} strokeWidth={2} absoluteStrokeWidth />,
+      command: ({ editor, range }: any) => {
+        editor
+          .chain()
+          .focus()
+          .deleteRange(range)
+          .setNode("heading", { level: 1 })
+          .run();
       },
     },
     {
       id: "heading2",
       title: "Heading 2",
-      category: "Base",
-      description: "Medium section heading",
       searchTerms: ["base", "heading", "medium", "h2", "##"],
-      icon: <Heading2Icon size={15} strokeWidth={1} absoluteStrokeWidth />,
+      shortcut: "##",
+      icon: <Heading2Icon size={16} strokeWidth={2} absoluteStrokeWidth />,
       command: ({ editor, range }: any) => {
         editor
           .chain()
@@ -64,10 +79,9 @@ export const getSuggestionItems = ({ query }: { query: string }) => {
     {
       id: "heading3",
       title: "Heading 3",
-      category: "Base",
-      description: "Small section heading",
+      shortcut: "###",
       searchTerms: ["base", "heading", "small", "h3", "###"],
-      icon: <Heading3Icon size={15} />,
+      icon: <Heading3Icon size={16} strokeWidth={2} absoluteStrokeWidth />,
       command: ({ editor, range }: any) => {
         editor
           .chain()
@@ -80,10 +94,8 @@ export const getSuggestionItems = ({ query }: { query: string }) => {
     {
       id: "callout",
       title: "Callout",
-      category: "Base",
-      description: "Make text standout",
-      searchTerms: ["base", "panel", "info"],
-      icon: <InfoIcon />,
+      searchTerms: ["panel", "info"],
+      icon: <InformationCircleIcon className="w-4 h-4" />,
       command: ({ editor, range }: any) => {
         editor.chain().focus().deleteRange(range).setCallout().run();
       },
@@ -91,21 +103,29 @@ export const getSuggestionItems = ({ query }: { query: string }) => {
     {
       id: "bullet-list",
       title: "Bullet List",
-      category: "Base",
-      description: "Create a simple bullet list",
-      searchTerms: ["Base", "unordered", "point"],
-      icon: <ListIcon />,
+      shortcut: "-",
+      searchTerms: ["unordered", "point"],
+      icon: <ListBulletIcon className="w-4 h-4" />,
       command: ({ editor, range }: any) => {
         editor.chain().focus().deleteRange(range).toggleBulletList().run();
       },
     },
     {
+      id: "number-list",
+      title: "Numbered List",
+      shortcut: "1.",
+      searchTerms: ["ordered", "number", "point"],
+      icon: <NumberedListIcon className="w-4 h-4" />,
+      command: ({ editor, range }: any) => {
+        editor.chain().focus().deleteRange(range).toggleOrderedList().run();
+      },
+    },
+    {
       id: "blockquote",
       title: "Blockquote",
-      category: "Base",
-      description: "Capture a quote",
+      shortcut: ">",
       searchTerms: ["blockquote"],
-      icon: <QuoteIcon />,
+      icon: <QuoteIcon className="w-4 h-4" />,
       command: ({ editor, range }: any) =>
         editor
           .chain()
@@ -118,53 +138,24 @@ export const getSuggestionItems = ({ query }: { query: string }) => {
     {
       id: "codeblock",
       title: "Codeblock",
-      category: "Base",
-      description: "Create a code snippet",
+      shortcut: "```",
       searchTerms: ["base", "code", "codeblock"],
-      icon: <CodeIcon />,
+      icon: <CodeBracketSquareIcon className="w-4 h-4" />,
       command: ({ editor, range }: any) =>
         editor.chain().focus().deleteRange(range).toggleCodeBlock().run(),
     },
     {
-      id: "task-list",
-      title: "To-do List",
-      category: "Base",
-      description: "Track tasks and to-dos",
-      searchTerms: ["todo", "task", "list"],
-      icon: <CheckBoxIcon />,
+      id: "divider",
+      title: "Divider",
+      shortcut: "---",
+      searchTerms: ["divider", "hr", "---"],
+      icon: <MinusIcon className="w-4 h-4" />,
       command: ({ editor, range }: any) =>
-        editor.chain().focus().deleteRange(range).toggleTaskList().run(),
-    },
-    {
-      id: "image",
-      title: "Image",
-      category: "Media",
-      description: "Upload an image",
-      searchTerms: ["media", "image", "photo", "picture", "media"],
-      icon: <ImageIcon />,
-      command: ({ editor, range }: any) => {
-        editor.chain().focus().deleteRange(range).run();
-        editor.commands.insertContent("<loading-component />");
-        // upload image
-        const input = document.createElement("input");
-        input.type = "file";
-        input.accept = "image/*";
-        input.onchange = async () => {
-          if (input.files?.length) {
-            const file = input.files[0];
-            uploadEditorImage(file).then((url: string) => {
-              editor.chain().focus().setFigure({ src: url, caption: "" }).run();
-            });
-          }
-        };
-        input.click();
-      },
+        editor.chain().focus().deleteRange(range).setHorizontalRule().run(),
     },
     {
       id: "embed",
       title: "Embed",
-      category: "Media",
-      description: "Embed from Loom, Figma and more",
       searchTerms: [
         "media",
         "embed",
@@ -174,7 +165,7 @@ export const getSuggestionItems = ({ query }: { query: string }) => {
         "loom",
         "youtube",
       ],
-      icon: <MixIcon />,
+      icon: <SquaresPlusIcon className="w-4 h-4" />,
       command: ({ editor, range }: any) => {
         editor.chain().focus().deleteRange(range).run();
 
@@ -193,7 +184,7 @@ export const getSuggestionItems = ({ query }: { query: string }) => {
       const search = query.toLowerCase();
       return (
         item.title.toLowerCase().includes(search) ||
-        item.description.toLowerCase().includes(search) ||
+        item.shortcut?.toLowerCase().includes(search) ||
         (item.searchTerms &&
           item.searchTerms.some((term: string) => term.includes(search)))
       );

@@ -81,7 +81,7 @@ export function useDocs() {
             ...oldData,
             {
               id: Math.random(),
-              title: format(new Date(), "mm DD YY"),
+              title: format(new Date(), "mm dd yy"),
               emoji: "📝",
             },
           ];

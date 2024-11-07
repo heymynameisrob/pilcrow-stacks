@@ -66,7 +66,7 @@ const config: Config = {
             "--tw-prose-captions": "var(--gray-11)",
             "--tw-prose-code": "var(--gray-12)",
             "--tw-prose-pre-code": "var(--gray-12)",
-            "--tw-prose-pre-bg": "var(--gray-1)",
+            "--tw-prose-pre-bg": "var(--gray-3)",
             "--tw-prose-th-borders": "var(--color-border)",
             "--tw-prose-td-borders": "var(--color-border)",
           },

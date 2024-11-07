@@ -132,38 +132,6 @@ export const TipTapEditor = ({
     [removeBacklink, doc],
   );
 
-  // /**
-  //  * AI Completion - This is here because it's triggered by the slash command
-  //  * But has to be in the editor so it works when the command list closes after firing
-  //  * Also we can "stream" by inserting the text as it comes in
-  //  */
-  // const prev = useRef("");
-
-  // const { completion, isLoading } = useCompletion({
-  //   id: "complete",
-  //   api: "/api/ai/complete",
-  //   onFinish: (completion) => {
-  //     console.log("completion", completion);
-  //     editor?.commands.setTextSelection({
-  //       from: editor.state.selection.from - completion.length,
-  //       to: editor.state.selection.from,
-  //     });
-  //   },
-  //   onError: (error) => {
-  //     console.error("Something went wrong.", error.message);
-  //     va.track("ai-completion-error", {
-  //       error: error.message,
-  //     });
-  //   },
-  // });
-
-  // // Insert chunks of the generated text
-  // useEffect(() => {
-  //   const diff = completion.slice(prev.current.length);
-  //   prev.current = completion;
-  //   editor?.commands.insertContent(diff);
-  // }, [isLoading, editor, completion]);
-
   /**
    * Setup editor and make editable
    */

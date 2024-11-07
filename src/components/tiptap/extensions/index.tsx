@@ -27,9 +27,9 @@ import { TextStyle } from "@tiptap/extension-text-style";
 import TiptapLink from "@tiptap/extension-link";
 import TiptapUnderline from "@tiptap/extension-underline";
 import { UniqueID } from "@tiptap-pro/extension-unique-id";
-import { lowlight } from "lowlight/lib/common";
 import { TaskList } from "@tiptap/extension-task-list";
 import { TaskItem } from "@tiptap/extension-task-item";
+import { lowlight } from "lowlight/lib/common";
 
 // Custom Extensions
 import { Color } from "@/components/tiptap/extensions/color";
@@ -134,7 +134,7 @@ export const defaultExtensions: Array<any> = [
   Code.configure({
     HTMLAttributes: {
       class:
-        "rounded-md bg-ui-low px-1.5 py-1 font-mono font-medium text-primary text-sm",
+        "rounded-md bg-gray-2 px-1.5 py-1 font-mono font-medium text-primary text-sm",
       spellcheck: "false",
     },
   }),
@@ -144,7 +144,7 @@ export const defaultExtensions: Array<any> = [
     },
   }).configure({
     HTMLAttributes: {
-      class: "rounded-lg bg-ui-low px-1.5 py-1 font-mono text-sm text-primary",
+      class: "rounded-lg bg-gray-4 px-1.5 py-1 font-mono text-sm text-primary",
       spellcheck: "false",
     },
     lowlight,

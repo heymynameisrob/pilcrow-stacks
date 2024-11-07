@@ -3,7 +3,7 @@
 import { toast } from "sonner";
 import { useHotkeys } from "react-hotkeys-hook";
 import { type Editor, NodeViewContent, NodeViewWrapper } from "@tiptap/react";
-import { ClipboardIcon as CopyIcon } from "@heroicons/react/16/solid";
+import { DocumentDuplicateIcon } from "@heroicons/react/16/solid";
 
 import { Button } from "@/primitives/button";
 
@@ -51,8 +51,9 @@ export const CodeBlockComponent = ({
   return (
     <NodeViewWrapper className="group relative">
       <Button
-        size="sm"
+        size="icon"
         variant="ghost"
+        title="Copy to clipboard"
         className="pointer-events-none absolute right-2 top-2 opacity-0 group-hover:pointer-events-auto group-hover:opacity-100"
         onClick={(e) => {
           e.preventDefault();
@@ -60,9 +61,22 @@ export const CodeBlockComponent = ({
           toast.success("Copied to clipboard");
         }}
       >
-        <CopyIcon />
+        <DocumentDuplicateIcon className="w-4 h-4 opacity-70" />
       </Button>
-      <pre className="rounded-lg">
+      {/* <select contentEditable={false} defaultValue={defaultLanguage} onChange={event => updateAttributes({ language: event.target.value })}>
+            <option value="null">
+              auto
+            </option>
+            <option disabled>
+              —
+            </option>
+            {extension.options.lowlight.listLanguages().map((lang, index) => (
+              <option key={index} value={lang}>
+                {lang}
+              </option>
+            ))}
+          </select>           */}
+      <pre className="rounded-md border shadow-sm">
         <NodeViewContent as="code" />
       </pre>
     </NodeViewWrapper>

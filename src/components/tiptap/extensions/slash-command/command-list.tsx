@@ -23,32 +23,11 @@ export const CommandList = ({
 }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  /**
-   * AI Completion for 'Continue Writing'.
-   * Uses 'ai/complete' endpoint.
-   */
-  // const { complete, isLoading } = useCompletion({
-  //   id: "complete",
-  //   api: "/api/ai/complete",
-  //   onResponse: (response) => {
-  //     if (response.status === 429) {
-  //       toast.error("You have reached your request limit for the day.");
-  //       // TODO: Add VA tracking
-  //       return;
-  //     }
-  //   },
-  //   onError: (e) => {
-  //     toast.error(e.message);
-  //     // TODO: Add VA tracking
-  //   },
-  // });
-
   const selectItem = useCallback(
     (index: number) => {
       const item = items[index];
 
       if (item && item.id === "ai-complete") {
-        // if (isLoading) return;
         const selection = editor?.state.selection;
         if (!selection) return;
 
@@ -56,12 +35,6 @@ export const CommandList = ({
           from: selection.from - 1,
           to: selection.from,
         });
-        // return complete(
-        //   getPreviousText(editor, {
-        //     chars: 500,
-        //     offset: 1,
-        //   }),
-        // );
       }
 
       return command(item);
@@ -118,7 +91,7 @@ export const CommandList = ({
     <div
       id="slash-command"
       ref={commandListContainer}
-      className="dark z-50 h-auto max-h-[330px] w-80 overflow-y-auto rounded-lg border border-primary bg-ui p-1 text-primary shadow-[var(--popover-shadow)] animate-in"
+      className="z-50 h-auto max-h-[240px] w-64 overflow-y-auto rounded-lg border bg-gray-1 p-1 text-primary shadow-md animate-in animate-out dark:shadow-[0px_0px_0px_0.5px_rgba(0,0,0,1),_0px_4px_4px_rgba(0,0,0,0.24)]"
     >
       {items.map((item: CommandItemProps, index: number) => {
         return (

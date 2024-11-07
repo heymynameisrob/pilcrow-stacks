@@ -8,7 +8,7 @@ import {
   UnderlineIcon,
 } from "@heroicons/react/16/solid";
 import { DropdownMenuContent } from "@radix-ui/react-dropdown-menu";
-import { BubbleMenu } from "@tiptap/react";
+import { BubbleMenu, type Editor } from "@tiptap/react";
 import { forwardRef, useEffect, useRef, useState } from "react";
 
 import {
@@ -113,7 +113,7 @@ const colorClasses = [
   },
 ];
 
-export function TipTapMenu({ editor }: any) {
+export function TipTapMenu({ editor }: { editor: Editor }) {
   const ref = useRef<HTMLDivElement>(null);
 
   return (
@@ -135,7 +135,7 @@ export function TipTapMenu({ editor }: any) {
   );
 }
 
-function MenuFormatOptions({ editor }: any) {
+function MenuFormatOptions({ editor }: { editor: Editor }) {
   const onSetLink = () => {
     const isLink = editor.isActive("link");
 
@@ -145,6 +145,7 @@ function MenuFormatOptions({ editor }: any) {
     }
 
     const url = window.prompt("Enter the URL of the link:");
+    if (!url) return;
     editor.commands.setLink({ href: url });
   };
 
@@ -154,9 +155,7 @@ function MenuFormatOptions({ editor }: any) {
         size="sm"
         pressed={editor.isActive("bold")}
         title="Bold"
-        aria-label="Bold"
-        data-microtip-position="top"
-        role="tooltip"
+        className="rounded-lg hover:bg-gray-3 data-[state=open]:bg-gray-4"
         onPressedChange={() => editor.commands.toggleBold()}
       >
         <BoldIcon
@@ -170,9 +169,7 @@ function MenuFormatOptions({ editor }: any) {
         size="sm"
         pressed={editor.isActive("italic")}
         title="Italic"
-        aria-label="Italic"
-        data-microtip-position="top"
-        role="tooltip"
+        className="rounded-lg hover:bg-gray-3 data-[state=open]:bg-gray-4"
         onPressedChange={() => editor.commands.toggleItalic()}
       >
         <ItalicIcon
@@ -186,9 +183,7 @@ function MenuFormatOptions({ editor }: any) {
         size="sm"
         pressed={editor.isActive("underline")}
         title="Underline"
-        aria-label="Underline"
-        data-microtip-position="top"
-        role="tooltip"
+        className="rounded-lg hover:bg-gray-3 data-[state=open]:bg-gray-4"
         onPressedChange={() => editor.commands.toggleUnderline()}
       >
         <UnderlineIcon
@@ -202,9 +197,7 @@ function MenuFormatOptions({ editor }: any) {
         size="sm"
         pressed={editor.isActive("strike")}
         title="Strike"
-        aria-label="Strike"
-        data-microtip-position="top"
-        role="tooltip"
+        className="rounded-lg hover:bg-gray-3 data-[state=open]:bg-gray-4"
         onPressedChange={() => editor.commands.toggleStrike()}
       >
         <StrikethroughIcon
@@ -218,9 +211,7 @@ function MenuFormatOptions({ editor }: any) {
         size="sm"
         pressed={editor.isActive("code")}
         title="Code"
-        aria-label="Code"
-        data-microtip-position="top"
-        role="tooltip"
+        className="rounded-lg hover:bg-gray-3 data-[state=open]:bg-gray-4"
         onPressedChange={() => editor.commands.toggleCode()}
       >
         <CodeBracketIcon
@@ -234,9 +225,7 @@ function MenuFormatOptions({ editor }: any) {
         size="sm"
         pressed={editor.isActive("link")}
         title="Link"
-        aria-label="Link"
-        data-microtip-position="top"
-        role="tooltip"
+        className="rounded-lg hover:bg-gray-3 data-[state=open]:bg-gray-4"
         onPressedChange={onSetLink}
       >
         <LinkIcon
@@ -278,21 +267,17 @@ const MenuColorMenu = forwardRef(({ editor }: any, ref: any) => {
 
   return (
     <>
-      <DropdownMenuTrigger>
-        <div
+      <DropdownMenuTrigger asChild>
+        <Toggle
+          size="sm"
           title="Color"
-          aria-label="Color"
-          data-microtip-position="top"
-          role="tooltip"
-          className={
-            "flex h-7 w-7 items-center justify-center rounded-lg hover:bg-white/10 data-[state=open]:bg-ui-high"
-          }
+          className="rounded-lg hover:bg-gray-3 data-[state=open]:bg-gray-4"
         >
           <EyeDropperIcon className={cn("h-4 w-4 text-secondary", color)} />
-        </div>
+        </Toggle>
       </DropdownMenuTrigger>
       <DropdownMenuPortal container={ref.current}>
-        <DropdownMenuContent className="dark z-50 max-w-[10rem] overflow-hidden rounded-lg border border-primary bg-ui p-1 text-primary shadow-md animate-in data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2">
+        <DropdownMenuContent className="dark z-50 max-w-[10rem] overflow-hidden rounded-lg border border-primary bg-gray-2 p-1 text-primary shadow-md animate-in data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2">
           <DropdownMenuRadioGroup
             value={color}
             onValueChange={handleSetColor}
@@ -314,7 +299,9 @@ const MenuColorMenu = forwardRef(({ editor }: any, ref: any) => {
                     >
                       A
                     </div>
-                    <small className="!text-sm capitalize">{color.name}</small>
+                    <small className="!text-sm capitalize">
+                      {color.name === "reset" ? "Default" : color.name}
+                    </small>
                   </div>
                 </DropdownMenuRadioItem>
               ))}
