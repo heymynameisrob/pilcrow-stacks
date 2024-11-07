@@ -110,6 +110,8 @@ jobs:
 
       - name: Push DB Changes
         run: yarn run db:push
+        env:
+          POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
 
   Deploy:
     needs: Database
