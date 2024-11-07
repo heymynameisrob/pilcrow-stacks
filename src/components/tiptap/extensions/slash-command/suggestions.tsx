@@ -11,13 +11,13 @@ import {
   ListBulletIcon,
   CodeBracketSquareIcon,
   SquaresPlusIcon,
+  NumberedListIcon,
+  MinusIcon,
+  AtSymbolIcon,
 } from "@heroicons/react/16/solid";
+import { QuoteIcon } from "@radix-ui/react-icons";
 
 import { getEmbedUrl } from "@/lib/editor";
-import { QuoteIcon } from "@radix-ui/react-icons";
-import { NumberedListIcon } from "@heroicons/react/16/solid";
-import { MinusIcon } from "@heroicons/react/16/solid";
-import { AtSymbolIcon } from "@heroicons/react/16/solid";
 
 export type CommandItemProps = {
   id: string;
