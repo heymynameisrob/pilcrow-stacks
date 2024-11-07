@@ -173,11 +173,11 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
     .from(schema.users)
     .where(eq(schema.users.id, session.user.id));
 
-  if (isOnboarded)
+  if (isOnboarded.length > 0)
     return {
       redirect: {
         permanent: false,
-        destination: "/app",
+        destination: "/",
       },
     };
 
