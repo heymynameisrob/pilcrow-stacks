@@ -19,10 +19,10 @@ jobs:
         with:
           node-version: 20
 
-      - name: Create .npmrc for Tiptap
+      - name: Create .npmrc file
         run: |
           echo "@tiptap-pro:registry=https://registry.tiptap.dev/" > .npmrc
-          echo "//registry.tiptap.dev/:_authToken=\"$TIPTAP_PRO_TOKEN\"" >> .npmrc
+          echo "//registry.tiptap.dev/:_authToken=${TIPTAP_PRO_TOKEN}" >> .npmrc
         env:
           TIPTAP_PRO_TOKEN: ${{ secrets.TIPTAP_PRO_TOKEN }}
 
@@ -54,10 +54,10 @@ jobs:
         with:
           node-version: 20
 
-      - name: Create .npmrc for Tiptap
+      - name: Create .npmrc file
         run: |
           echo "@tiptap-pro:registry=https://registry.tiptap.dev/" > .npmrc
-          echo "//registry.tiptap.dev/:_authToken=\"$TIPTAP_PRO_TOKEN\"" >> .npmrc
+          echo "//registry.tiptap.dev/:_authToken=${TIPTAP_PRO_TOKEN}" >> .npmrc
         env:
           TIPTAP_PRO_TOKEN: ${{ secrets.TIPTAP_PRO_TOKEN }}
 
@@ -92,10 +92,10 @@ jobs:
         with:
           node-version: 20
 
-      - name: Create .npmrc for Tiptap
+      - name: Create .npmrc file
         run: |
           echo "@tiptap-pro:registry=https://registry.tiptap.dev/" > .npmrc
-          echo "//registry.tiptap.dev/:_authToken=\"$TIPTAP_PRO_TOKEN\"" >> .npmrc
+          echo "//registry.tiptap.dev/:_authToken=${TIPTAP_PRO_TOKEN}" >> .npmrc
         env:
           TIPTAP_PRO_TOKEN: ${{ secrets.TIPTAP_PRO_TOKEN }}
 
@@ -127,10 +127,10 @@ jobs:
         with:
           node-version: 20
 
-      - name: Create .npmrc for Tiptap
+      - name: Create .npmrc file
         run: |
           echo "@tiptap-pro:registry=https://registry.tiptap.dev/" > .npmrc
-          echo "//registry.tiptap.dev/:_authToken=\"$TIPTAP_PRO_TOKEN\"" >> .npmrc
+          echo "//registry.tiptap.dev/:_authToken=${TIPTAP_PRO_TOKEN}" >> .npmrc
         env:
           TIPTAP_PRO_TOKEN: ${{ secrets.TIPTAP_PRO_TOKEN }}
 
