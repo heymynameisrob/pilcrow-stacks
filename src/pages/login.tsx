@@ -28,7 +28,7 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
     return {
       redirect: {
         permanent: false,
-        destination: isOnboarded ? "/app" : "/onboarding",
+        destination: isOnboarded ? "/" : "/onboarding",
       },
     };
 

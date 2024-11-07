@@ -9,6 +9,7 @@ import { Toggle } from "@/primitives/toggle";
 import { useDoc } from "@/queries/docs";
 import { cn } from "@/lib/utils";
 import { REVALIDATE_DAY } from "@/lib/fetch";
+import { Button } from "@/primitives/button";
 
 type EmojiPickerProps = {
   docId: string;
@@ -34,22 +35,16 @@ export const EmojiPicker = ({
         .json();
       return res;
     },
-    persister: undefined,
     staleTime: REVALIDATE_DAY,
   });
 
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
-        <Toggle
-          pressed={isOpen}
-          onPressedChange={setIsOpen}
-          onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-            e.preventDefault();
-            e.stopPropagation();
-            setIsOpen(!isOpen);
-          }}
-          data-emoji
+        <Button
+          size="icon"
+          variant="ghost"
+          onClick={() => setIsOpen(!isOpen)}
           className={cn(
             "h-9 w-9 rounded-lg bg-gray-3 dark:bg-gray-2 p-px !text-base",
             disabled && "pointer-events-none",
@@ -57,10 +52,11 @@ export const EmojiPicker = ({
           )}
         >
           {emoji || "📝"}
-        </Toggle>
+        </Button>
       </PopoverTrigger>
       <PopoverContent
         align="start"
+        side="bottom"
         avoidCollisions={true}
         className="w-[350px] overflow-hidden border-0 p-0"
       >

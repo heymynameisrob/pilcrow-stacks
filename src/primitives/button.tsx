@@ -40,7 +40,10 @@ export interface ButtonProps
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, title, asChild = false, ...props }, ref) => {
+  (
+    { className, variant, size, onClick, title, asChild = false, ...props },
+    ref,
+  ) => {
     const Comp = asChild ? Slot : "button";
 
     if (title) {
@@ -49,7 +52,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           <Comp
             className={cn(buttonVariants({ variant, size, className }))}
             ref={ref}
+            onMouseDown={onClick}
             {...props}
+            onClick={undefined}
           />
         </Tooltip>
       );
@@ -59,7 +64,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <Comp
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
+        onMouseDown={onClick}
         {...props}
+        onClick={undefined}
       />
     );
   },
