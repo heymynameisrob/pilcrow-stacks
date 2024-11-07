@@ -20,10 +20,11 @@ jobs:
           node-version: 20
           cache: "yarn"
 
+      # Create .npmrc before yarn install but with escaped token
       - name: Create .npmrc for Tiptap
         run: |
           echo "@tiptap-pro:registry=https://registry.tiptap.dev/" > .npmrc
-          echo "//registry.tiptap.dev/:_authToken=${TIPTAP_PRO_TOKEN}" >> .npmrc
+          echo "//registry.tiptap.dev/:_authToken=\"$TIPTAP_PRO_TOKEN\"" >> .npmrc
         env:
           TIPTAP_PRO_TOKEN: ${{ secrets.TIPTAP_PRO_TOKEN }}
 
@@ -36,7 +37,6 @@ jobs:
           path: |
             .next
             node_modules
-            .npmrc
           key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
 
   Check:
@@ -50,13 +50,19 @@ jobs:
           node-version: 20
           cache: "yarn"
 
+      - name: Create .npmrc for Tiptap
+        run: |
+          echo "@tiptap-pro:registry=https://registry.tiptap.dev/" > .npmrc
+          echo "//registry.tiptap.dev/:_authToken=\"$TIPTAP_PRO_TOKEN\"" >> .npmrc
+        env:
+          TIPTAP_PRO_TOKEN: ${{ secrets.TIPTAP_PRO_TOKEN }}
+
       - name: Restore Cache
         uses: actions/cache@v3
         with:
           path: |
             .next
             node_modules
-            .npmrc
           key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
 
       - name: Type Check
@@ -76,13 +82,19 @@ jobs:
           node-version: 20
           cache: "yarn"
 
+      - name: Create .npmrc for Tiptap
+        run: |
+          echo "@tiptap-pro:registry=https://registry.tiptap.dev/" > .npmrc
+          echo "//registry.tiptap.dev/:_authToken=\"$TIPTAP_PRO_TOKEN\"" >> .npmrc
+        env:
+          TIPTAP_PRO_TOKEN: ${{ secrets.TIPTAP_PRO_TOKEN }}
+
       - name: Restore Cache
         uses: actions/cache@v3
         with:
           path: |
             .next
             node_modules
-            .npmrc
           key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
 
       - name: Push DB Changes
@@ -99,13 +111,19 @@ jobs:
           node-version: 20
           cache: "yarn"
 
+      - name: Create .npmrc for Tiptap
+        run: |
+          echo "@tiptap-pro:registry=https://registry.tiptap.dev/" > .npmrc
+          echo "//registry.tiptap.dev/:_authToken=\"$TIPTAP_PRO_TOKEN\"" >> .npmrc
+        env:
+          TIPTAP_PRO_TOKEN: ${{ secrets.TIPTAP_PRO_TOKEN }}
+
       - name: Restore Cache
         uses: actions/cache@v3
         with:
           path: |
             .next
             node_modules
-            .npmrc
           key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
 
       - name: Install Vercel CLI
