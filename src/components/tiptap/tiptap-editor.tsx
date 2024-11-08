@@ -48,7 +48,7 @@ export const TipTapEditor = ({
       Mention.configure({
         HTMLAttributes: {
           class:
-            "bg-gray-2 border border-secondary px-1 py-0.5 rounded-lg underline text-accent font-normal cursor-pointer hover:bg-gray-3",
+            "bg-gray-2 px-1 py-0.5 rounded-lg underline text-accent font-normal cursor-pointer hover:bg-gray-3 dark:bg-gray-4 dark:hover:bg-gray-5",
         },
         suggestion: {
           items: async ({ query }: { query: string }) => {

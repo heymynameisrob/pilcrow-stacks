@@ -72,7 +72,7 @@ export function Editor({ docId }: { docId: string }) {
   return (
     <div
       className={cn(
-        "relative flex flex-col w-full h-full shrink-0 bg-background border-r last:border-none",
+        "relative flex flex-col w-full h-full shrink-0 bg-background border-r last:border-none dark:bg-gray-2",
         isSaving && "opacity-70 pointer-events-none aniamte-pulse",
       )}
     >

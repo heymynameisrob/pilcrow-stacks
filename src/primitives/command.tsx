@@ -31,7 +31,7 @@ interface CommandDialogProps extends DialogProps {
 const CommandDialog = ({ children, ...props }: CommandDialogProps) => {
   return (
     <Dialog {...props}>
-      <DialogContent className="overflow-hidden p-0 shadow-floating max-w-[600px]">
+      <DialogContent className="overflow-hidden p-0 shadow-floating max-w-[600px] border">
         <Command className="[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-primary [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-group]]:px-2 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5">
           {children}
         </Command>
@@ -48,7 +48,7 @@ const CommandInput = React.forwardRef<
 >(({ className, currentPage, ...props }, ref) => (
   <div
     className={cn(
-      "flex items-center gap-2 border-b px-3 bg-gray-1 dark:bg-gray-2",
+      "flex items-center gap-2 border-b px-3 bg-gray-1 dark:bg-gray-1",
       className,
     )}
     cmdk-input-wrapper=""
@@ -76,7 +76,7 @@ const CommandList = React.forwardRef<
   <CommandPrimitive.List
     ref={ref}
     className={cn(
-      "max-h-[300px] overflow-y-auto overflow-x-hidden dark:bg-gray-1",
+      "max-h-[300px] overflow-y-auto overflow-x-hidden dark:bg-gray-2",
       className,
     )}
     {...props}

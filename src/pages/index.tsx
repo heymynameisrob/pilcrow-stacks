@@ -9,7 +9,7 @@ import { Editor } from "@/components/editor";
 import { Island } from "@/components/client-island";
 import { useOpenDocsStore, useReadOnlyStore } from "@/stores/docs";
 import { OpenDocsEmptyState } from "@/components/docs/docs-empty";
-import { DocQueueItem } from "@/components/docs/doc-queue-item";
+import { Sidebar } from "@/components/sidebar";
 
 import type { GetServerSidePropsContext } from "next";
 
@@ -26,17 +26,7 @@ export default function Page() {
 
   return (
     <main className="flex flex-col h-screen md:flex-row">
-      <div className="flex bg-gray-2 border-r md:flex-col dark:bg-gray-1">
-        <div className="flex h-full items-center gap-2 px-2 py-4 overflow-x-scroll md:overflow-y-scroll scrol-mb-4 md:flex-col">
-          {openDocs.length > 3 &&
-            openDocs
-              .slice(0, openDocs.length - limit)
-              .map((id) => <DocQueueItem key={id} id={id} />)}
-        </div>
-        <div className="flex items-center justify-center p-2 bg-gradient-to-t from-gray-4 to-gray-2 dark:to-gray-1">
-          <UserMenu position="bottom" />
-        </div>
-      </div>
+      <Sidebar />
       <div className="flex w-full h-full">
         <div className="w-full h-full grid grid-cols-1 md:grid-cols-3">
           {openDocs.length > 0 &&
