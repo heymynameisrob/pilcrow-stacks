@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import { XMarkIcon } from "@heroicons/react/16/solid";
 
@@ -9,6 +9,7 @@ import { TipTapEditor } from "@/components/tiptap/tiptap-editor";
 import { getTitleFromJson } from "@/lib/editor";
 import { cn } from "@/lib/utils";
 import { useOpenDocsStore } from "@/stores/docs";
+import { Backlinks } from "@/components/backlinks";
 
 import type { Editor as EditorType } from "@tiptap/react";
 
@@ -36,7 +37,6 @@ export function Editor({ docId }: { docId: string }) {
       id: docId,
       title,
       content,
-      emoji: "📝",
       lastEdited: new Date().toISOString(),
     });
 
@@ -72,21 +72,32 @@ export function Editor({ docId }: { docId: string }) {
   return (
     <div
       className={cn(
-        "relative flex flex-col gap-6 w-full h-full shrink-0 bg-background px-6 py-8 border-r last:border-none",
+        "relative flex flex-col w-full h-full shrink-0 bg-background border-r last:border-none",
         isSaving && "opacity-70 pointer-events-none aniamte-pulse",
       )}
     >
-      <Button
-        size="icon"
-        title="Close"
-        variant="ghost"
-        className="absolute top-1 right-1"
-        onClick={() => closeDoc(doc.id)}
-      >
-        <XMarkIcon className="w-4 h-4 opacity-60" />
-      </Button>
-      <EmojiPicker emoji={doc.emoji || "📝"} docId={docId} />
-      <TipTapEditor doc={doc} handleOnSave={handleOnSave} />
+      <div className="sticky top-0 flex items-center justify-between w-full h-12 px-2 py-2">
+        <header role="banner" className="flex items-center gap-2 px-2">
+          <Suspense fallback={<div className="h-7 w-7 rounded-mg bg-gray-3" />}>
+            <EmojiPicker emoji={doc.emoji || "📝"} docId={docId} />
+          </Suspense>
+          <small className="font-medium text-primary">{doc.title}</small>
+        </header>
+        <Button
+          size="icon"
+          title="Close"
+          variant="ghost"
+          onClick={() => closeDoc(doc.id)}
+        >
+          <XMarkIcon className="w-4 h-4 opacity-60" />
+        </Button>
+      </div>
+      <section className="flex flex-col px-6 py-8 h-full">
+        <TipTapEditor doc={doc} handleOnSave={handleOnSave} />
+        <Suspense fallback="Loading...">
+          <Backlinks id={doc.id} />
+        </Suspense>
+      </section>
     </div>
   );
 }

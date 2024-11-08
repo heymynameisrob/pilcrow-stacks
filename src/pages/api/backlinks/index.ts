@@ -64,7 +64,7 @@ async function saveData(userId: string, data: Backlink) {
       .values(data)
       .returning()
       .then((res) => res[0]);
-    console.log("backlinks", res);
+
     return { data: res, status: 200 };
   } catch (err: unknown) {
     console.error("Error saving backlinks:", err);

@@ -4,7 +4,7 @@ import ky from "ky";
 import { Editor, EditorContent, useEditor } from "@tiptap/react";
 import { EditorState } from "@tiptap/pm/state";
 
-import { useOpenDocsStore, useReadOnly } from "@/stores/docs";
+import { useOpenDocsStore, useReadOnlyStore } from "@/stores/docs";
 import { defaultExtensions } from "@/components/tiptap/extensions";
 import { Mention } from "@/components/tiptap/extensions/mentions/mention";
 import { defaultEditorProps } from "@/components/tiptap/tiptap-props";
@@ -28,7 +28,7 @@ export const TipTapEditor = ({
   // Queries & Stores
   const { removeBacklink } = useBacklinks();
   const { closeDoc } = useOpenDocsStore();
-  const { readOnlyMode } = useReadOnly();
+  const { readOnlyMode } = useReadOnlyStore();
 
   useHotkeys("Esc", () => closeDoc(doc.id), {
     enabled: focused,
@@ -131,7 +131,7 @@ export const TipTapEditor = ({
         }
       });
     },
-    [removeBacklink],
+    [removeBacklink, doc.id],
   );
 
   /**

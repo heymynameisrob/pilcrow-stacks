@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import ky from "ky";
 import Picker from "@emoji-mart/react";
 
@@ -27,7 +27,7 @@ export const EmojiPicker = ({
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { saveDoc } = useDoc(docId);
 
-  const { data } = useQuery({
+  const { data } = useSuspenseQuery({
     queryKey: ["emojis"],
     queryFn: async () => {
       const res = ky
@@ -46,7 +46,7 @@ export const EmojiPicker = ({
           variant="ghost"
           onClick={() => setIsOpen(!isOpen)}
           className={cn(
-            "h-9 w-9 rounded-lg bg-gray-3 dark:bg-gray-2 p-px !text-base",
+            "h-7 w-7 rounded-md bg-gray-3 dark:bg-gray-2 p-px !text-base",
             disabled && "pointer-events-none",
             className,
           )}

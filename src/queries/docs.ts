@@ -1,4 +1,9 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+  useSuspenseQuery,
+} from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { format } from "date-fns";
 
@@ -11,7 +16,7 @@ export function useDoc(docId: string) {
   const { data: session } = useSession();
   const queryClient = useQueryClient();
 
-  const { data, error, isLoading } = useQuery({
+  const { data, error, isLoading } = useSuspenseQuery({
     queryKey: [`/api/docs/${docId}`, session?.user.id, docId],
     queryFn: async () => {
       const { data, error }: ApiReturnType<Doc> = await api
@@ -72,21 +77,6 @@ export function useDocs() {
         .json();
       if (error) throw Error(error.message);
       return data;
-    },
-    onMutate: () => {
-      queryClient.setQueryData(
-        ["/api/docs", session?.user.id],
-        (oldData: Array<Doc>) => {
-          return [
-            ...oldData,
-            {
-              id: Math.random(),
-              title: format(new Date(), "mm dd yy"),
-              emoji: "📝",
-            },
-          ];
-        },
-      );
     },
     onSuccess: (data: Doc | null) => {
       if (!data) return null;

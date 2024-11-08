@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { Tooltip } from "@/primitives/tooltip";
 
 const buttonVariants = cva(
-  "inline-flex items-center whitespace-nowrap justify-center rounded-lg text-sm leading-4 font-medium transition-colors outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:opacity-50 disabled:pointer-events-none active:scale-[0.98]",
+  "inline-flex items-center whitespace-nowrap justify-center rounded-lg text-sm leading-4 font-medium transition-colors outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:opacity-50 disabled:pointer-events-none active:scale-[0.98]",
   {
     variants: {
       variant: {

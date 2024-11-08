@@ -74,7 +74,7 @@ export const defaultExtensions: Array<any> = [
   Figure.configure({
     HTMLAttributes: {
       class:
-        "outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
+        "outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
     },
   }),
   Iframe.configure({

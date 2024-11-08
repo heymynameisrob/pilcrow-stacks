@@ -5,6 +5,7 @@ type IslandProps = {
   fallback?: React.ReactNode;
   lazy?: boolean;
   delay?: number; // Optional delay before showing
+  suspense?: boolean; // use suspense
   onMount?: () => void; // Callback when mounted
 };
 
@@ -26,6 +27,7 @@ export function Island({
   delay = 0,
   onMount,
   fallback,
+  suspense,
 }: IslandProps) {
   const [mounted, setMounted] = useState(false);
   const [shouldRender, setShouldRender] = useState(!delay);
@@ -47,6 +49,10 @@ export function Island({
 
   // Don't render yet if there's a delay
   if (!shouldRender) return fallback || null;
+
+  if (suspense) {
+    return <Suspense fallback={fallback}>{children}</Suspense>;
+  }
 
   if (lazy) {
     return (

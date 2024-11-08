@@ -7,7 +7,7 @@ import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { UserMenu } from "@/components/user-menu";
 import { Editor } from "@/components/editor";
 import { Island } from "@/components/client-island";
-import { useOpenDocsStore, useReadOnly } from "@/stores/docs";
+import { useOpenDocsStore, useReadOnlyStore } from "@/stores/docs";
 import { OpenDocsEmptyState } from "@/components/docs/docs-empty";
 import { DocQueueItem } from "@/components/docs/doc-queue-item";
 
@@ -16,11 +16,11 @@ import type { GetServerSidePropsContext } from "next";
 export default function Page() {
   const { data: session } = useSession();
   const { docs: openDocs } = useOpenDocsStore();
-  const { readOnlyMode } = useReadOnly();
+  const { readOnlyMode } = useReadOnlyStore();
 
   const limit = 3;
 
-  useTitle("Robs app");
+  useTitle("Pilcrow");
 
   if (!session) return null;
 
@@ -44,7 +44,7 @@ export default function Page() {
               .slice(Math.max(0, openDocs.length - limit), openDocs.length)
               .map((doc) => {
                 return (
-                  <Island key={doc}>
+                  <Island key={doc} suspense={true} fallback={null}>
                     <Editor docId={doc} />
                   </Island>
                 );

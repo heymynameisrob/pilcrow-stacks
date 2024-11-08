@@ -1,9 +1,14 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+  useSuspenseQuery,
+} from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 
 import { api, REVALIDATE_DAY } from "@/lib/fetch";
 
-import type { ApiReturnType, Backlink } from "@/lib/types";
+import type { ApiReturnType, Backlink, Doc } from "@/lib/types";
 
 export function useBacklinks() {
   const { data: session } = useSession();
@@ -76,5 +81,27 @@ export function useBacklinks() {
     error,
     newBacklink,
     removeBacklink,
+  };
+}
+
+export function useBacklinkedDocs(id: string) {
+  const { data: session } = useSession();
+
+  const { data, error, isLoading } = useSuspenseQuery({
+    queryKey: [`/api/backlinks/docs/${id}`, session?.user.id],
+    queryFn: async () => {
+      const { data, error }: ApiReturnType<Array<Doc>> = await api
+        .get(`/api/backlinks/docs/${id}`)
+        .json();
+      if (error) throw Error(error.message);
+      return data;
+    },
+    staleTime: REVALIDATE_DAY,
+  });
+
+  return {
+    docs: data || [],
+    loading: isLoading,
+    error,
   };
 }

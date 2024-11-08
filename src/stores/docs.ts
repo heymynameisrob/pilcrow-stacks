@@ -27,7 +27,7 @@ export const useOpenDocsStore = create<{
   },
 }));
 
-export const useReadOnly = create<{
+export const useReadOnlyStore = create<{
   readOnlyMode: boolean;
   setReadOnlyMode: (bool: boolean) => void;
 }>((set) => ({

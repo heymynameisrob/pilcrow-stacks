@@ -13,7 +13,7 @@ const config: Config = {
         primary: "var(--gray-12)",
         secondary: "var(--gray-11)",
         accent: "var(--accent)",
-        ring: "var(--gray-12)",
+        ring: "var(--gray-7)",
         gray: {
           "1": "var(--gray-1)",
           "2": "var(--gray-2)",

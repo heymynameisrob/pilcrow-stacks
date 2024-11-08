@@ -7,6 +7,7 @@ import { MagnifyingGlassIcon as SearchIcon } from "@heroicons/react/16/solid";
 
 import { Dialog, DialogContent } from "@/primitives/dialog";
 import { cn } from "@/lib/utils";
+import { Badge } from "@/primitives/badge";
 
 const Command = React.forwardRef<
   React.ElementRef<typeof CommandPrimitive>,
@@ -41,16 +42,21 @@ const CommandDialog = ({ children, ...props }: CommandDialogProps) => {
 
 const CommandInput = React.forwardRef<
   React.ElementRef<typeof CommandPrimitive.Input>,
-  React.ComponentPropsWithoutRef<typeof CommandPrimitive.Input>
->(({ className, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof CommandPrimitive.Input> & {
+    currentPage?: string;
+  }
+>(({ className, currentPage, ...props }, ref) => (
   <div
     className={cn(
-      "flex items-center border-b px-3 bg-gray-1 dark:bg-gray-2",
+      "flex items-center gap-2 border-b px-3 bg-gray-1 dark:bg-gray-2",
       className,
     )}
     cmdk-input-wrapper=""
   >
-    <SearchIcon className="mr-2 h-4 w-4 shrink-0 opacity-50" />
+    <SearchIcon className="h-4 w-4 shrink-0 opacity-50" />
+    {currentPage && currentPage !== "home" ? (
+      <Badge>{currentPage}</Badge>
+    ) : null}
     <CommandPrimitive.Input
       ref={ref}
       className={cn(

@@ -5,8 +5,6 @@ import { cn } from "@/lib/utils";
 
 type TooltipProps = PropsWithChildren<{
   content: string | React.ReactNode;
-  open?: boolean;
-  onOpenChange?: (open: boolean) => void;
   side?: "top" | "right" | "bottom" | "left" | undefined;
   sideOffset?: number;
   align?: "center" | "start" | "end" | undefined;
@@ -16,8 +14,6 @@ type TooltipProps = PropsWithChildren<{
 export function Tooltip({
   children,
   content,
-  open,
-  onOpenChange,
   side = "top",
   sideOffset = 4,
   align = "center",
