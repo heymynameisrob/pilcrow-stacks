@@ -1,4 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
+import { Portal } from "@radix-ui/react-hover-card";
 
 import { useOpenDocsStore } from "@/stores/docs";
 import { useDoc } from "@/queries/docs";
@@ -8,7 +9,6 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/primitives/hover-card";
-import { Portal } from "@radix-ui/react-hover-card";
 import { RichText } from "@/components/rich-text";
 import { Island } from "@/components/client-island";
 

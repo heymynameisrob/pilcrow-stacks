@@ -1,9 +1,5 @@
-"use client";
-import React, { useEffect, useMemo, useState } from "react";
-import StarterKit from "@tiptap/starter-kit";
+import React from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
-import { Markdown } from "tiptap-markdown";
-import Link from "@tiptap/extension-link";
 
 import { cn } from "@/lib/utils";
 import { defaultExtensions } from "@/components/tiptap/extensions";
@@ -11,11 +7,9 @@ import { defaultExtensions } from "@/components/tiptap/extensions";
 export const RichText = ({
   content,
   className,
-  extensions,
 }: {
   content: any;
   className?: string;
-  extensions?: any[];
 }) => {
   const editor = useEditor({
     content,

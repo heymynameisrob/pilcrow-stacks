@@ -1,11 +1,9 @@
-"use client";
 import { useState } from "react";
-import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import ky from "ky";
 import Picker from "@emoji-mart/react";
 
 import { Popover, PopoverContent, PopoverTrigger } from "@/primitives/popover";
-import { Toggle } from "@/primitives/toggle";
 import { useDoc } from "@/queries/docs";
 import { cn } from "@/lib/utils";
 import { REVALIDATE_DAY } from "@/lib/fetch";

@@ -4,7 +4,6 @@ import { useTitle } from "react-use";
 import { getServerSession } from "next-auth";
 
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
-import { UserMenu } from "@/components/user-menu";
 import { Editor } from "@/components/editor";
 import { Island } from "@/components/client-island";
 import { useOpenDocsStore, useReadOnlyStore } from "@/stores/docs";

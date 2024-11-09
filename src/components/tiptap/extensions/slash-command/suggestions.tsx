@@ -13,7 +13,6 @@ import {
   SquaresPlusIcon,
   NumberedListIcon,
   MinusIcon,
-  AtSymbolIcon,
 } from "@heroicons/react/16/solid";
 import { QuoteIcon } from "@radix-ui/react-icons";
 

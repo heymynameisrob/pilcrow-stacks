@@ -5,7 +5,6 @@ import { eq, and, inArray } from "drizzle-orm";
 import { auth } from "@/lib/auth";
 import { db, schema } from "@/lib/db";
 
-import type { Doc } from "@/lib/types";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
