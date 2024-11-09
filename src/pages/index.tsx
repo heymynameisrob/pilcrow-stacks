@@ -24,11 +24,13 @@ export default function Page() {
 
   if (!session) return null;
 
+  console.log(openDocs);
+
   return (
     <main className="flex flex-col h-screen md:flex-row">
       <Sidebar />
       <div className="flex w-full h-full">
-        <div className="w-full h-full grid grid-cols-1 md:grid-cols-3">
+        <div className="w-full h-full grid grid-cols-1 md:grid-cols-3 dark:bg-gray-2">
           {openDocs.length > 0 &&
             openDocs
               .slice(Math.max(0, openDocs.length - limit), openDocs.length)

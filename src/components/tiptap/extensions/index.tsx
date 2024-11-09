@@ -29,7 +29,7 @@ import TiptapUnderline from "@tiptap/extension-underline";
 import { UniqueID } from "@tiptap-pro/extension-unique-id";
 import { TaskList } from "@tiptap/extension-task-list";
 import { TaskItem } from "@tiptap/extension-task-item";
-import { lowlight } from "lowlight/lib/common";
+import { common, createLowlight } from "lowlight";
 
 // Custom Extensions
 import { Color } from "@/components/tiptap/extensions/color";
@@ -45,6 +45,8 @@ import { CustomHighlight } from "@/components/tiptap/extensions/custom-mark";
 import Loading from "@/components/tiptap/extensions/loading";
 import { CodeBlockComponent } from "@/components/tiptap/extensions/codeblock";
 import { Figure } from "@/components/tiptap/extensions/figure";
+
+const lowlight = createLowlight(common);
 
 export const defaultExtensions: Array<any> = [
   Document.extend({
@@ -144,7 +146,7 @@ export const defaultExtensions: Array<any> = [
     },
   }).configure({
     HTMLAttributes: {
-      class: "rounded-lg bg-gray-4 px-1.5 py-1 font-mono text-sm text-primary",
+      class: "rounded-lg bg-gray-2 px-1.5 py-1 font-mono text-sm text-primary",
       spellcheck: "false",
     },
     lowlight,

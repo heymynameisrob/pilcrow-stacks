@@ -17,7 +17,7 @@ export function OpenDocsEmptyState({
     return (
       <div
         className={
-          "relative flex flex-col w-full shrink-0 bg-background px-12 py-8 border-r"
+          "relative flex flex-col w-full shrink-0 bg-background px-12 py-8 border-r dark:bg-gray-2"
         }
       >
         <div className="prose max-w-prose">
@@ -61,7 +61,7 @@ export function OpenDocsEmptyState({
   return (
     <div
       className={
-        "relative grid place-items-center gap-6 w-full shrink-0 bg-background px-12 py-8 border-r"
+        "relative grid place-items-center gap-6 w-full shrink-0 bg-background px-12 py-8 border-r dark:bg-gray-2"
       }
     >
       <div className="flex flex-col items-center gap-6">

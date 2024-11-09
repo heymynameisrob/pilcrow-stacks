@@ -121,7 +121,7 @@ export const TipTapEditor = ({
         }
       });
 
-      console.log(prevMentionNodes, mentionNodes);
+      if (prevMentionNodes.length === 0 || mentionNodes.length === 0) return;
 
       previousState.current = editor.state;
 

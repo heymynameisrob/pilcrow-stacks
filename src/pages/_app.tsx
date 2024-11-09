@@ -30,12 +30,7 @@ export default function App({
         mutationCache: new MutationCache({
           // Invalidate query automatically on cache and error
           onSuccess: (_data, _variables, _context, mutation) => {
-            IS_DEV &&
-              console.error(
-                "Success",
-                mutation.options.mutationKey,
-                Math.floor(performance.now()),
-              );
+            IS_DEV && console.log("Success", mutation.options.mutationKey);
             queryClient.invalidateQueries({
               queryKey: mutation.options.mutationKey,
             });

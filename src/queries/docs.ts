@@ -5,7 +5,6 @@ import {
   useSuspenseQuery,
 } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
-import { format } from "date-fns";
 
 import { api, REVALIDATE_DAY } from "@/lib/fetch";
 import { useOpenDocsStore } from "@/stores/docs";
@@ -22,7 +21,6 @@ export function useDoc(docId: string) {
       const { data, error }: ApiReturnType<Doc> = await api
         .get(`/api/docs/${docId}`)
         .json();
-      console.log(error);
       if (error) throw Error(error.message);
       return data;
     },

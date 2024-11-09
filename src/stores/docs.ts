@@ -12,9 +12,10 @@ export const useOpenDocsStore = create<{
       : JSON.parse(localStorage.getItem("pilcrow_docs") ?? "[]"),
   openDoc: (id) => {
     const docs = get().docs;
-    const updatedDocs = docs.filter((d) => id !== d).concat(id);
-    set({ docs: updatedDocs });
-    localStorage.setItem("pilcrow_docs", JSON.stringify(updatedDocs));
+    const existingIds = docs.filter((d) => id !== d);
+
+    set({ docs: [...existingIds, id] });
+    localStorage.setItem("pilcrow_docs", JSON.stringify([...existingIds, id]));
   },
   closeDoc: (id) => {
     const filteredDocs = get().docs.filter((doc) => doc !== id);

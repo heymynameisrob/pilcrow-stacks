@@ -151,48 +151,113 @@
       font-size: 0.8rem;
     }
 
+    /* Highlight.js Theme */
+    .hljs {
+      color: #fff;
+      background: #1e1e1e;
+    }
+
+    /* Comments */
     .hljs-comment,
     .hljs-quote {
-      color: #616161;
+      color: #8b8b8b94;
     }
 
+    /* Variables and Tags */
     .hljs-variable,
     .hljs-template-variable,
-    .hljs-attribute,
-    .hljs-tag,
-    .hljs-name,
-    .hljs-regexp,
-    .hljs-link,
-    .hljs-name,
-    .hljs-selector-id,
-    .hljs-selector-class {
-      color: #f98181;
+    .hljs-tag {
+      color: #fff;
     }
 
-    .hljs-number,
-    .hljs-meta,
-    .hljs-built_in,
-    .hljs-builtin-name,
-    .hljs-literal,
-    .hljs-type,
-    .hljs-params {
-      color: #fbbc88;
-    }
-
-    .hljs-string,
-    .hljs-symbol,
-    .hljs-bullet {
-      color: #b9f18d;
-    }
-
-    .hljs-title,
-    .hljs-section {
-      color: #faf594;
-    }
-
+    /* Keywords and Storage */
     .hljs-keyword,
+    .hljs-name,
+    .hljs-built_in,
     .hljs-selector-tag {
-      color: #70cff8;
+      color: #a0a0a0;
+    }
+
+    /* Functions and Methods */
+    .hljs-function,
+    .hljs-function .hljs-title,
+    .hljs-title.function_,
+    .hljs-title.class_,
+    .hljs-title.class_.inherited__ {
+      color: #ffc799;
+    }
+
+    /* Strings */
+    .hljs-string,
+    .hljs-title.string,
+    .hljs-symbol,
+    .hljs-bullet,
+    .hljs-addition {
+      color: #99ffe4;
+    }
+
+    /* Numbers and Constants */
+    .hljs-number,
+    .hljs-boolean,
+    .hljs-literal,
+    .hljs-regexp {
+      color: #ffc799;
+    }
+
+    /* Operators and Punctuation */
+    .hljs-operator,
+    .hljs-punctuation {
+      color: #a0a0a0;
+    }
+
+    /* Invalid */
+    .hljs-deletion,
+    .hljs-meta {
+      color: #ff8080;
+    }
+
+    /* Attributes */
+    .hljs-attr,
+    .hljs-attribute,
+    .hljs-selector-attr,
+    .hljs-selector-class,
+    .hljs-selector-id {
+      color: #a0a0a0;
+    }
+
+    /* Type Annotations */
+    .hljs-type,
+    .hljs-doctag,
+    .hljs-title.class_,
+    .hljs-strong {
+      color: #ffc799;
+    }
+
+    /* CSS Properties */
+    .hljs-property {
+      color: #fff;
+    }
+
+    /* Links */
+    .hljs-link {
+      color: #ffc799;
+      text-decoration: underline;
+    }
+
+    /* Markdown Specific */
+    .hljs-section {
+      color: #ffc799;
+      font-weight: bold;
+    }
+
+    .hljs-emphasis {
+      color: #fff;
+      font-style: italic;
+    }
+
+    .hljs-code,
+    .hljs-formula {
+      color: #a0a0a0;
     }
 
     .hljs-emphasis {
