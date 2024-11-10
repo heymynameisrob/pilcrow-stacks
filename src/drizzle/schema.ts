@@ -1,11 +1,12 @@
 import {
   text,
   pgTableCreator,
-  date,
   foreignKey,
   jsonb,
   primaryKey,
+  timestamp,
 } from "drizzle-orm/pg-core";
+import { sql } from "drizzle-orm/sql";
 import { nanoid } from "nanoid";
 
 const pgTable = pgTableCreator((name) => `pilcrowstacks_${name}`);
@@ -32,7 +33,9 @@ export const docs = pgTable(
     title: text("title"),
     emoji: text("emoji"),
     content: jsonb("content"),
-    lastEdited: date("last_edited").defaultNow(),
+    lastEdited: timestamp("last_edited", { mode: "string" })
+      .notNull()
+      .default(sql`now()`),
     user: text("user_id"),
   },
   (table) => {

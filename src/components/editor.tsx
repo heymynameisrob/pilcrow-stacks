@@ -37,7 +37,6 @@ export function Editor({ docId }: { docId: string }) {
       id: docId,
       title,
       content,
-      lastEdited: new Date().toISOString(),
     });
 
     setIsSaving(false);

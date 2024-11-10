@@ -128,14 +128,14 @@
     @apply font-medium;
   }
 
-  .tiptap p.is-editor-empty:first-child::before {
+  .tiptap .is-editor-empty:first-child::before {
     color: var(--gray-7);
     content: attr(data-placeholder);
     float: left;
     height: 0;
     pointer-events: none;
   }
-  .tiptap p.is-empty::before {
+  .tiptap .is-empty::before {
     color: var(--gray-7);
     content: attr(data-placeholder);
     float: left;

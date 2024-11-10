@@ -40,6 +40,9 @@ export function useDoc(docId: string) {
       queryClient.invalidateQueries({
         queryKey: [`/api/docs/${docId}`, session?.user.id],
       });
+      queryClient.invalidateQueries({
+        queryKey: [`/api/docs`, session?.user.id],
+      });
     },
   });
 

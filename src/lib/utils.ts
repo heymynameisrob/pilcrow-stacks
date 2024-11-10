@@ -56,6 +56,11 @@ export function fromNow(date: Date, verbose?: boolean) {
 
   if (verbose) return `${distance} ago`;
 
+  // Check if less than 1 minute
+  if (distance.includes("less than a minute")) {
+    return "just now";
+  }
+
   // Remove qualifiers like "about", "almost", "over", "less than"
   const cleanDistance = distance.replace(/^(about|almost|over|less than) /, "");
 
@@ -81,5 +86,5 @@ export function fromNow(date: Date, verbose?: boolean) {
       singularUnit.toLowerCase() as keyof typeof unitAbbreviations
     ] ?? singularUnit.charAt(0).toLowerCase();
 
-  return `${value}${abbreviatedUnit} ago`;
+  return `${value} ${abbreviatedUnit} ago`;
 }

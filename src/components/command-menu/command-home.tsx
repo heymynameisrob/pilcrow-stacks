@@ -1,16 +1,19 @@
 import { useTheme } from "next-themes";
+import { signOut } from "next-auth/react";
 import {
   ArchiveBoxXMarkIcon,
   ArrowRightEndOnRectangleIcon,
   BookOpenIcon,
+  BugAntIcon,
   ComputerDesktopIcon,
   DocumentPlusIcon,
   MagnifyingGlassIcon,
+  ArrowLeftStartOnRectangleIcon,
 } from "@heroicons/react/16/solid";
 
-import { CommandGroup, CommandItem } from "@/primitives/command";
 import { useDocs } from "@/queries/docs";
 import { useOpenDocsStore, useReadOnlyStore } from "@/stores/docs";
+import { CommandGroup, CommandItem } from "@/primitives/command";
 import { useCommandContext } from "@/components/command-menu";
 
 export function CommandHome() {
@@ -60,19 +63,23 @@ export function CommandHome() {
               <ArchiveBoxXMarkIcon className="w-4 h-4 opacity-70" />
               <small className="font-medium">Close all documents</small>
             </CommandItem>
+            <CommandItem
+              onSelect={() => {
+                setReadOnlyMode(!readOnlyMode);
+                setOpen(false);
+              }}
+            >
+              <BookOpenIcon className="w-4 h-4 opacity-70" />
+              {readOnlyMode ? (
+                <small className="font-medium">Writing mode</small>
+              ) : (
+                <small className="font-medium">Read-only mode</small>
+              )}
+            </CommandItem>
           </>
         )}
       </CommandGroup>
       <CommandGroup heading="Settings">
-        <CommandItem
-          onSelect={() => {
-            setReadOnlyMode(!readOnlyMode);
-            setOpen(false);
-          }}
-        >
-          <BookOpenIcon className="w-4 h-4 opacity-70" />
-          <small className="font-medium">Toggle read-only mode</small>
-        </CommandItem>
         <CommandItem
           onSelect={() => {
             setTheme(theme === "dark" ? "light" : "dark");
@@ -81,6 +88,23 @@ export function CommandHome() {
         >
           <ComputerDesktopIcon className="w-4 h-4 opacity-70" />
           <small className="font-medium">Toggle theme</small>
+        </CommandItem>
+        <CommandItem>
+          <a
+            href="https://github.com/heymynameisrob/pilcrow-stacks/issues/new"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2"
+          >
+            <BugAntIcon className="w-4 h-4 opacity-70" />
+            <small className="font-medium">Report a bug</small>
+          </a>
+        </CommandItem>
+        <CommandItem onSelect={() => signOut()}>
+          <ArrowLeftStartOnRectangleIcon className="w-4 h-4 text-red-500 opacity-70" />
+          <small className="font-medium text-red-700 dark:text-red-500">
+            Logout
+          </small>
         </CommandItem>
       </CommandGroup>
     </>

@@ -41,7 +41,7 @@ export const TipTapEditor = ({
    */
 
   const editor = useEditor({
-    content: doc.content || "# New document",
+    content: doc.content || "",
     immediatelyRender: false,
     extensions: [
       ...defaultExtensions,

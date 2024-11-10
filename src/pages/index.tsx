@@ -2,6 +2,7 @@ import React from "react";
 import { useSession } from "next-auth/react";
 import { useTitle } from "react-use";
 import { getServerSession } from "next-auth";
+import { useHotkeys } from "react-hotkeys-hook";
 
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { Editor } from "@/components/editor";
@@ -9,11 +10,14 @@ import { Island } from "@/components/client-island";
 import { useOpenDocsStore, useReadOnlyStore } from "@/stores/docs";
 import { OpenDocsEmptyState } from "@/components/docs/docs-empty";
 import { Sidebar } from "@/components/sidebar";
+import { Info } from "@/components/info";
+import { useDocs } from "@/queries/docs";
 
 import type { GetServerSidePropsContext } from "next";
 
 export default function Page() {
   const { data: session } = useSession();
+  const { newDoc } = useDocs();
   const { docs: openDocs } = useOpenDocsStore();
   const { readOnlyMode } = useReadOnlyStore();
 
@@ -21,9 +25,12 @@ export default function Page() {
 
   useTitle("Pilcrow");
 
-  if (!session) return null;
+  useHotkeys("Mod+N", () => newDoc(), {
+    preventDefault: true,
+    enableOnContentEditable: true,
+  });
 
-  console.log(openDocs);
+  if (!session) return null;
 
   return (
     <main className="flex flex-col h-screen md:flex-row">
@@ -50,6 +57,7 @@ export default function Page() {
           Read-only
         </div>
       )}
+      <Info />
     </main>
   );
 }

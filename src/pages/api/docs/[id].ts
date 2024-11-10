@@ -50,6 +50,7 @@ async function saveData(userId: string, data: Doc) {
       .update(schema.docs)
       .set({
         ...data,
+        lastEdited: new Date().toISOString(),
         user: userId,
       })
       .where(eq(schema.docs.id, data.id))

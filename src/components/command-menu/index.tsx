@@ -41,11 +41,31 @@ export function CommandMenu() {
   const [open, setOpen] = useState<boolean>(false);
   const [value, setValue] = useState<string>("");
 
-  useHotkeys("Mod+K", () => setOpen(true), {
-    preventDefault: true,
-    enableOnContentEditable: true,
-    enableOnFormTags: true,
-  });
+  useHotkeys(
+    "Mod+K",
+    () => {
+      setOpen(!open);
+      setCurrentPage("home");
+    },
+    {
+      preventDefault: true,
+      enableOnContentEditable: true,
+      enableOnFormTags: true,
+    },
+  );
+
+  useHotkeys(
+    "Mod+P",
+    () => {
+      setOpen(!open);
+      setCurrentPage("docs");
+    },
+    {
+      preventDefault: true,
+      enableOnContentEditable: true,
+      enableOnFormTags: true,
+    },
+  );
 
   const page = useMemo(() => {
     switch (currentPage) {

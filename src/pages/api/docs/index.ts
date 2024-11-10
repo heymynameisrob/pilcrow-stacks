@@ -28,6 +28,7 @@ async function getData(userId: string) {
         id: schema.docs.id,
         emoji: schema.docs.emoji,
         title: schema.docs.title,
+        lastEdited: schema.docs.lastEdited,
       })
       .from(schema.docs)
       .where(eq(schema.docs.user, userId))
