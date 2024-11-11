@@ -60,6 +60,7 @@ export const EmojiPicker = ({
       >
         <Picker
           data={data}
+          autoFocus={true}
           onEmojiSelect={(emoji: any) => {
             saveDoc({
               id: docId,

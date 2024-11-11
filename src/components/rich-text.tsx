@@ -1,5 +1,6 @@
 import React from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
+import Mention from "@tiptap/extension-mention";
 
 import { cn } from "@/lib/utils";
 import { defaultExtensions } from "@/components/tiptap/extensions";
@@ -13,7 +14,16 @@ export const RichText = ({
 }) => {
   const editor = useEditor({
     content,
-    extensions: [...defaultExtensions],
+    immediatelyRender: false,
+    extensions: [
+      ...defaultExtensions,
+      Mention.configure({
+        HTMLAttributes: {
+          class:
+            "bg-gray-2 px-1 py-0.5 rounded-lg underline text-accent font-normal cursor-pointer hover:bg-gray-3 dark:bg-gray-4 dark:hover:bg-gray-5",
+        },
+      }),
+    ],
     editable: false,
     editorProps: {
       attributes: {

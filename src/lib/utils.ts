@@ -2,6 +2,8 @@ import { clsx, type ClassValue } from "clsx";
 import { formatDistanceToNow } from "date-fns";
 import { twMerge } from "tailwind-merge";
 
+export const LIMIT = 3;
+
 // Copied from Shadcn - https://ui.shadcn.com
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

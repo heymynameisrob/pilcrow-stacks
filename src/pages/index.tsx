@@ -5,23 +5,17 @@ import { getServerSession } from "next-auth";
 import { useHotkeys } from "react-hotkeys-hook";
 
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
-import { Editor } from "@/components/editor";
-import { Island } from "@/components/client-island";
-import { useOpenDocsStore, useReadOnlyStore } from "@/stores/docs";
-import { OpenDocsEmptyState } from "@/components/docs/docs-empty";
-import { Sidebar } from "@/components/sidebar";
-import { Info } from "@/components/info";
 import { useDocs } from "@/queries/docs";
+import { PrevSidebar, NextSidebar } from "@/components/sidebar";
+import { DocsInView } from "@/components/docs/docs-view";
+import { Info } from "@/components/info";
+import { DocsReadOnly } from "@/components/docs/docs-readonly";
 
 import type { GetServerSidePropsContext } from "next";
 
 export default function Page() {
   const { data: session } = useSession();
   const { newDoc } = useDocs();
-  const { docs: openDocs } = useOpenDocsStore();
-  const { readOnlyMode } = useReadOnlyStore();
-
-  const limit = 3;
 
   useTitle("Pilcrow");
 
@@ -34,29 +28,10 @@ export default function Page() {
 
   return (
     <main className="flex flex-col h-screen md:flex-row">
-      <Sidebar />
-      <div className="flex w-full h-full">
-        <div className="w-full h-full grid grid-cols-1 md:grid-cols-3 dark:bg-gray-2">
-          {openDocs.length > 0 &&
-            openDocs
-              .slice(Math.max(0, openDocs.length - limit), openDocs.length)
-              .map((doc) => {
-                return (
-                  <Island key={doc} suspense={true} fallback={null}>
-                    <Editor docId={doc} />
-                  </Island>
-                );
-              })}
-          {openDocs.length < 3 && (
-            <OpenDocsEmptyState isEmptyState={openDocs.length === 0} />
-          )}
-        </div>
-      </div>
-      {readOnlyMode && (
-        <div className="absolute bottom-0 right-0 px-1.5 py-1 bg-indigo-600 text-white font-mono z-50 text-xs uppercase font-semibold tracking-wide rounded-tl-lg">
-          Read-only
-        </div>
-      )}
+      <PrevSidebar />
+      <DocsInView />
+      <NextSidebar />
+      <DocsReadOnly />
       <Info />
     </main>
   );
