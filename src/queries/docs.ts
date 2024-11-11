@@ -16,7 +16,7 @@ export function useDoc(docId: string) {
   const queryClient = useQueryClient();
 
   const { data, error, isLoading } = useSuspenseQuery({
-    queryKey: [`/api/docs/${docId}`, session?.user.id, docId],
+    queryKey: [`/api/docs/${docId}`, session?.user.id],
     queryFn: async () => {
       const { data, error }: ApiReturnType<Doc> = await api
         .get(`/api/docs/${docId}`)
@@ -28,7 +28,7 @@ export function useDoc(docId: string) {
   });
 
   const { mutate: saveDoc } = useMutation({
-    mutationKey: [`/api/docs/${docId}`],
+    mutationKey: [`/api/docs/${docId}`, session?.user.id],
     mutationFn: async (doc: Partial<Doc>) => {
       const { data, error }: ApiReturnType<Partial<Doc>> = await api
         .post(`/api/docs/${docId}`, { json: doc })
@@ -37,9 +37,6 @@ export function useDoc(docId: string) {
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: [`/api/docs/${docId}`, session?.user.id],
-      });
       queryClient.invalidateQueries({
         queryKey: [`/api/docs`, session?.user.id],
       });
@@ -57,7 +54,6 @@ export function useDoc(docId: string) {
 export function useDocs() {
   const { data: session } = useSession();
   const { openDoc } = useOpenDocsStore();
-  const queryClient = useQueryClient();
 
   const { data, error, isLoading } = useQuery({
     queryKey: ["/api/docs", session?.user.id],
@@ -72,6 +68,7 @@ export function useDocs() {
   });
 
   const { mutate: newDoc } = useMutation({
+    mutationKey: ["/api/docs", session?.user.id],
     mutationFn: async () => {
       const { data, error }: ApiReturnType<Doc> = await api
         .post("/api/docs/new")
@@ -82,9 +79,6 @@ export function useDocs() {
     onSuccess: (data: Doc | null) => {
       if (!data) return null;
       openDoc(data.id);
-      queryClient.invalidateQueries({
-        queryKey: ["/api/docs", session?.user.id],
-      });
     },
   });
 

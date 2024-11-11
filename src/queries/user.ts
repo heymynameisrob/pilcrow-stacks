@@ -1,5 +1,6 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
+import { toast } from "sonner";
 
 import { api, REVALIDATE_DAY } from "@/lib/fetch";
 
@@ -7,8 +8,6 @@ import type { ApiReturnType, User } from "@/lib/types";
 
 export function useUser() {
   const { data: session } = useSession();
-
-  const queryClient = useQueryClient();
 
   const { data, error, isLoading } = useQuery({
     queryKey: ["/api/user", session?.user.id],
@@ -24,6 +23,7 @@ export function useUser() {
   });
 
   const { mutateAsync: updateUserProfile } = useMutation({
+    mutationKey: ["/api/user", session?.user.id],
     mutationFn: async (formData: Partial<User>) => {
       const { data, error }: ApiReturnType<Partial<User>> = await api
         .post("/api/user", { json: formData })
@@ -31,9 +31,8 @@ export function useUser() {
       if (error) throw Error(error.message);
       return data;
     },
-    onSuccess: (data: Partial<User> | null) => {
-      if (!data) return;
-      queryClient.setQueryData(["/api/user", data?.id], data);
+    onError: (error) => {
+      toast.error(error.message);
     },
   });
 

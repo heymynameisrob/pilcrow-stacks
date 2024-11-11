@@ -5,6 +5,7 @@ import {
   useSuspenseQuery,
 } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
+import { toast } from "sonner";
 
 import { api, REVALIDATE_DAY } from "@/lib/fetch";
 
@@ -28,6 +29,7 @@ export function useBacklinks() {
   });
 
   const { mutate: newBacklink } = useMutation({
+    mutationKey: ["/api/backlinks", session?.user.id],
     mutationFn: async (backlink: Partial<Backlink>) => {
       const { data, error }: ApiReturnType<Backlink> = await api
         .post("/api/backlinks", {
@@ -45,14 +47,10 @@ export function useBacklinks() {
         },
       );
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["/api/backlinks", session?.user.id],
-      });
-    },
   });
 
   const { mutate: removeBacklink } = useMutation({
+    mutationKey: ["/api/backlinks", session?.user.id],
     mutationFn: async (backlink: Partial<Backlink>) => {
       const { data, error }: ApiReturnType<Backlink> = await api
         .delete("/api/backlinks", { json: backlink })
@@ -68,10 +66,8 @@ export function useBacklinks() {
         },
       );
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["/api/backlinks", session?.user.id],
-      });
+    onError: (error) => {
+      toast.error("Failed to remove backlink");
     },
   });
 
