@@ -117,7 +117,7 @@ export function SiblingDoc({
   direction: "prev" | "next";
 }) {
   const { doc } = useDoc(id);
-  const { openDoc, cursor, setCursor } = useOpenDocsStore();
+  const { cursor, setCursor } = useOpenDocsStore();
 
   if (!doc) return null;
 

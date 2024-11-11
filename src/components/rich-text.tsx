@@ -1,6 +1,6 @@
 import React from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
-import Mention from "@tiptap/extension-mention";
+import { Mention } from "@tiptap/extension-mention";
 
 import { cn } from "@/lib/utils";
 import { defaultExtensions } from "@/components/tiptap/extensions";
