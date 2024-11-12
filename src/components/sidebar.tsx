@@ -16,7 +16,7 @@ import { Island } from "@/components/client-island";
 export function PrevSidebar() {
   const { docs, cursor, setCursor } = useOpenDocsStore();
 
-  useHotkeys("ArrowLeft", () => setCursor(cursor - 1), {
+  useHotkeys("Mod+[", () => setCursor(cursor - 1), {
     enabled: cursor > 0,
     preventDefault: true,
     enableOnContentEditable: true,
@@ -63,7 +63,7 @@ export function PrevSidebar() {
 export function NextSidebar() {
   const { docs, cursor, setCursor } = useOpenDocsStore();
 
-  useHotkeys("ArrowRight", () => setCursor(cursor + 1), {
+  useHotkeys("Mod+]", () => setCursor(cursor + 1), {
     preventDefault: true,
     enableOnContentEditable: true,
     enabled: cursor + LIMIT < docs.length,
