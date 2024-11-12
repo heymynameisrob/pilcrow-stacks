@@ -155,7 +155,7 @@ export function SiblingDoc({
           alignOffset={8}
           side={direction === "prev" ? "right" : "left"}
           align="start"
-          className="max-h-[360px]"
+          className="max-h-[360px] overflow-y-scroll"
         >
           <Island lazy>
             <RichText content={doc.content} />

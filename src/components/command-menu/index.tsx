@@ -106,7 +106,11 @@ export function CommandMenu() {
     <CommandContext.Provider value={values}>
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput
-          placeholder="Type a command or search for documents"
+          placeholder={
+            currentPage === "docs"
+              ? "Search docs..."
+              : "Search for a command..."
+          }
           currentPage={currentPage}
           value={value}
           onKeyDown={onKeyDown}
