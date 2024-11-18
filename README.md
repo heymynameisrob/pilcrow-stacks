@@ -9,15 +9,15 @@ Instead of our writing being a record on a page, it's more like a brush on a can
 So I'm building one that does.
 
 ## Features
-[x] Simple, calm Notion-like editor without all the fluff and GenAI crap
-[x] Create new documents instantly and view them in a 'stack', side-by-side, like pages in a book. 
-[x] Run at the speed of inspiration! Notes stack up so you only view 3-at-a-time. You can only browse back and forth, like a real notebook.
-[x] @ mention other documents to join up your thinking and create deep links between ideas when reading back
-[x] CMK menu for actions
-[x] Goto documents with keyboard shortcuts
-[ ] Upload rich media like video and images
-[ ] @ links can clear stack if CMD+Click
-[ ] Shareable read-only mode
+- Simple, calm Notion-like editor without all the fluff and GenAI crap
+- Create new documents instantly and view them in a 'stack', side-by-side, like pages in a book. 
+- Run at the speed of inspiration! Notes stack up so you only view 3-at-a-time. You can only browse back and forth, like a real notebook.
+- @ mention other documents to join up your thinking and create deep links between ideas when reading back
+- CMK menu for actions
+- Goto documents with keyboard shortcuts
+- TODO: Upload rich media like video and images
+- TODO: @ links can clear stack if CMD+Click
+- TODO: Shareable read-only mode
 
 
 ## Prior Art
