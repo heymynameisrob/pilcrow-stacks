@@ -8,14 +8,6 @@ Instead of our writing being a record on a page, it's more like a brush on a can
 
 So I'm building one that does.
 
-🏝️ 
-
-📖 
-
-👟 
-
-👋 
-
 ## Features
 [x] Simple, calm Notion-like editor without all the fluff and GenAI crap
 [x] Create new documents instantly and view them in a 'stack', side-by-side, like pages in a book. 
