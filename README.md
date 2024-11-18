@@ -1,38 +1,37 @@
-# Next Starter Pack
+# Pilcrow - A notebook app that writes at the speed of inspiration ✨
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
-This is my personal starter pack for new SSR projects. It's not really built as a boilerplate or starting point for anyone else, but feel free to use it if you'd like.
+Last winter I was working on a PKM-style side-project of the same name. That didn't really work out but I learned a lot about how I write because of it.
 
-## Why Next? Why Page Router?
-I personally like to build highlyinteractive applications. Which means I want as much CSR as possible. However, I there are some great benefits to SSR that it's often useful to take advantage of.
-Next, and pages router in particular, gives me the best balance of being to write lots of CSR code but with the option of SSR to help with certain things.
+Most people write to document things. The perception is you do all the thinking in your head and just 'get it down on paper'. But the reality is writing *is* the thinking. It opens up your mind to endless possibilities and new ideas.
 
-Although I'm a fan of RSC, pages router model is a lot more familiar and easier for me. I spend less time fighting rendering issues or worrying about where my code runs, and more time building.
-That's also the reason why a full-stack TS app makes sense for me.
+Instead of our writing being a record on a page, it's more like a brush on a canvas. However, writing apps don't work like that.
 
-## Included
-[x] Pages Router
-[x] Tailwind
-[x] Custom Radix-based colour system
-[x] Out-of-the-box primitives, built on top of Radix (mostly)
-[x] drizzle ORM for Postgres
-[x] Docker setup with local database, including table prefix so no need to run multiple containers
-[x] Auth with Auth.js
-[x] react-query for data fetching
-[x] Magic link login with Resend
-[x] Protected routes, api, and component templates
-[x] Useful hooks
-[x] Pre-commit CI (Typecheck, Lint)
-[ ] Optional IndexedDB persistance
-[ ] PWA support
-[ ] Rich components like TipTap Editor,
-[ ] Generic OpenAI routes with Instructor JS setup
+So I'm building one that does.
+
+🏝️ 
+
+📖 
+
+👟 
+
+👋 
+
+## Features
+[x] Simple, calm Notion-like editor without all the fluff and GenAI crap
+[x] Create new documents instantly and view them in a 'stack', side-by-side, like pages in a book. 
+[x] Run at the speed of inspiration! Notes stack up so you only view 3-at-a-time. You can only browse back and forth, like a real notebook.
+[x] @ mention other documents to join up your thinking and create deep links between ideas when reading back
+[x] CMK menu for actions
+[x] Goto documents with keyboard shortcuts
+[ ] Upload rich media like video and images
+[ ] @ links can clear stack if CMD+Click
+[ ] Shareable read-only mode
 
 
-## Approaches
-There are several approaches to how I build applications contained. Everything is a learning process so these may change.
+## Prior Art
+Layout is massively (stolen) inspired by how [Andy Matushack takes notes ](https://notes.andymatuschak.org/About_these_notes) 
 
-- Caching is mostly handled client-side through in-memory or persisted (IndexedDB), managed by React Query.
-I find it easier to have the client control the caching and revalidation so I know that every request is fresh data that I need, and I don't make server requests (which cost on Vercel/Serverless).
+[CMDK](https://cmdk.paco.me/)
+[shadcn](https://ui.shadcn.com/docs)
 
-- Auth checks are made on every request. We use Redis (Vercel KV) for this as it's really fast and cheap for simpe session storage. We can use 1 database for all projects as long as we prefix the keys.
+
