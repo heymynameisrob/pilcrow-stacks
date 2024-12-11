@@ -42,6 +42,7 @@ function makeQueryClient(persisterOptions?: boolean) {
         });
       },
       onError: (error, _variables, _context, mutation) => {
+        throw Error(error.message);
         queryClient.invalidateQueries({
           queryKey: mutation.options.mutationKey,
         });

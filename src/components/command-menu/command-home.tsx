@@ -11,7 +11,7 @@ import {
   ArrowLeftStartOnRectangleIcon,
 } from "@heroicons/react/16/solid";
 
-import { useDocs } from "@/queries/docs";
+import { useDocs, useDocsInView } from "@/queries/docs";
 import { useOpenDocsStore, useReadOnlyStore } from "@/stores/docs";
 import { CommandGroup, CommandItem } from "@/primitives/command";
 import { useCommandContext } from "@/components/command-menu";
@@ -19,7 +19,7 @@ import { useCommandContext } from "@/components/command-menu";
 export function CommandHome() {
   const { setOpen, setCurrentPage } = useCommandContext();
   const { newDoc } = useDocs();
-  const { docs: openDocs, closeDoc, closeAllDocs } = useOpenDocsStore();
+  const { docs: openDocs, closeDoc, closeAllDocs } = useDocsInView();
   const { setReadOnlyMode, readOnlyMode } = useReadOnlyStore();
   const { theme, setTheme } = useTheme();
 

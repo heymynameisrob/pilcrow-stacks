@@ -4,6 +4,7 @@ import { schema } from "@/lib/db";
 
 export type User = InferSelectModel<typeof schema.users>;
 export type Doc = InferSelectModel<typeof schema.docs>;
+export type DocsInView = InferSelectModel<typeof schema.docsInView>;
 export type Backlink = InferSelectModel<typeof schema.backlinks>;
 
 export type ApiReturnType<T> = {

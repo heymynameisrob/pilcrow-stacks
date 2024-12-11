@@ -3,7 +3,7 @@ import { useHotkeys } from "react-hotkeys-hook";
 import { Portal } from "@radix-ui/react-hover-card";
 
 import { useOpenDocsStore } from "@/stores/docs";
-import { useDoc } from "@/queries/docs";
+import { useDoc, useDocsInView } from "@/queries/docs";
 import { cn, LIMIT } from "@/lib/utils";
 import {
   HoverCard,
@@ -14,7 +14,7 @@ import { RichText } from "@/components/rich-text";
 import { Island } from "@/components/client-island";
 
 export function PrevSidebar() {
-  const { docs, cursor, setCursor } = useOpenDocsStore();
+  const { docs, cursor, setCursor } = useDocsInView();
 
   useHotkeys("Mod+[", () => setCursor(cursor - 1), {
     enabled: cursor > 0,
@@ -61,7 +61,7 @@ export function PrevSidebar() {
   );
 }
 export function NextSidebar() {
-  const { docs, cursor, setCursor } = useOpenDocsStore();
+  const { docs, cursor, setCursor } = useDocsInView();
 
   useHotkeys("Mod+]", () => setCursor(cursor + 1), {
     preventDefault: true,
@@ -117,7 +117,7 @@ export function SiblingDoc({
   direction: "prev" | "next";
 }) {
   const { doc } = useDoc(id);
-  const { cursor, setCursor } = useOpenDocsStore();
+  const { cursor, setCursor } = useDocsInView();
 
   if (!doc) return null;
 

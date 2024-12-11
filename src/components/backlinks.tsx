@@ -3,10 +3,12 @@ import React from "react";
 import { useBacklinkedDocs } from "@/queries/backlinks";
 import { Doc } from "@/lib/types";
 import { useOpenDocsStore } from "@/stores/docs";
+import { useDocsInView } from "@/queries/docs";
 
 export function Backlinks({ id }: { id: string }) {
   const { docs } = useBacklinkedDocs(id);
-  const { openDoc } = useOpenDocsStore();
+  // const { openDoc } = useOpenDocsStore();
+  const { openDoc } = useDocsInView();
 
   if (!docs || docs.length === 0) return null;
 

@@ -24,6 +24,11 @@ export default async function handler(
     return res.status(200).json(json);
   }
 
+  if (req.method === "DELETE") {
+    const json = await deleteData(userId, id as string);
+    return res.status(200).json(json);
+  }
+
   const json = await getData(userId, id as string);
 
   return res.status(200).json(json);
@@ -56,7 +61,7 @@ async function saveData(userId: string, data: Doc) {
       .where(eq(schema.docs.id, data.id))
       .returning()
       .then((res) => res[0]);
-    console.log(data, res);
+
     return { data: res, status: 200 };
   } catch (err: unknown) {
     console.error("Error fetching user profile:", err);
@@ -64,13 +69,25 @@ async function saveData(userId: string, data: Doc) {
   }
 }
 
-// Public - Only EVER set cache-control headers on public data
-// Everything is private, no-store by default as most routes are user-session based
-// This is general use SWR (stale-while-revalidate) that'll do for most public-data purposes
-// It sets a cache with Vercel CDN for 7 days, after that any requests trigger a revalidation
-// Use this instead of Redis
-//
-// res.setHeader(
-//   "Cache-Control",
-//   "public, max-age=604800, stale-while-revalidate=86400",
-// );
+async function deleteData(userId: string, docId: string) {
+  try {
+    const deleted = await db
+      .delete(schema.docs)
+      .where(and(eq(schema.docs.id, docId), eq(schema.docs.user, userId)))
+      .returning()
+      .then((res) => res[0]);
+
+    return {
+      data: deleted,
+      status: 200,
+      message: "Document successfully deleted",
+    };
+  } catch (err: unknown) {
+    console.error("Error deleting document:", err);
+    return {
+      data: null,
+      status: 500,
+      error: "Failed to delete document",
+    };
+  }
+}

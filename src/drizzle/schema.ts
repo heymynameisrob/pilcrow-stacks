@@ -5,6 +5,7 @@ import {
   jsonb,
   primaryKey,
   timestamp,
+  numeric,
 } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm/sql";
 import { nanoid } from "nanoid";
@@ -50,6 +51,21 @@ export const docs = pgTable(
     };
   },
 );
+
+export const docsInView = pgTable("docs_in_view", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  userId: text("user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  docIds: jsonb("doc_ids").notNull().$type<string[]>(), // Array of doc IDs
+  cursor: numeric("cursor").notNull().default("0"),
+  homepage: text("homepage").references(() => docs.id, { onDelete: "cascade" }),
+  lastUpdated: timestamp("last_updated", { mode: "string" })
+    .notNull()
+    .default(sql`now()`),
+});
 
 export const backlinks = pgTable(
   "backlinks",

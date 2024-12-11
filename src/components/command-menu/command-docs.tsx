@@ -1,13 +1,12 @@
 import { useCommandContext } from "@/components/command-menu";
 import { fromNow } from "@/lib/utils";
 import { CommandGroup, CommandItem } from "@/primitives/command";
-import { useDocs } from "@/queries/docs";
-import { useOpenDocsStore } from "@/stores/docs";
+import { useDocs, useDocsInView } from "@/queries/docs";
 
 export function CommandDocs() {
   const { setOpen } = useCommandContext();
   const { docs } = useDocs();
-  const { openDoc } = useOpenDocsStore();
+  const { openDoc } = useDocsInView();
 
   if (!docs) return null;
 

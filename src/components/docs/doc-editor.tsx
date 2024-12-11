@@ -3,13 +3,14 @@ import { useDebouncedCallback } from "use-debounce";
 import { XMarkIcon } from "@heroicons/react/16/solid";
 
 import { Button } from "@/primitives/button";
-import { useDoc } from "@/queries/docs";
+import { useDoc, useDocsInView } from "@/queries/docs";
 import { EmojiPicker } from "@/components/emoji-picker";
 import { TipTapEditor } from "@/components/tiptap/tiptap-editor";
 import { getTitleFromJson } from "@/lib/editor";
 import { cn } from "@/lib/utils";
 import { useOpenDocsStore } from "@/stores/docs";
 import { Backlinks } from "@/components/backlinks";
+import { DocHeader } from "@/components/docs/doc-header";
 
 import type { Editor as EditorType } from "@tiptap/react";
 
@@ -18,7 +19,7 @@ export function Editor({ docId }: { docId: string }) {
 
   // Queries
   const { doc, saveDoc } = useDoc(docId);
-  const { closeDoc, openDoc } = useOpenDocsStore();
+  const { closeDoc, openDoc } = useDocsInView();
 
   /**
    * 1 - Handle Save
@@ -75,22 +76,7 @@ export function Editor({ docId }: { docId: string }) {
         isSaving && "opacity-70 pointer-events-none aniamte-pulse",
       )}
     >
-      <div className="sticky top-0 flex items-center justify-between w-full h-12 px-2 py-2">
-        <header role="banner" className="flex items-center gap-2 px-2">
-          <Suspense fallback={<div className="h-7 w-7 rounded-mg bg-gray-3" />}>
-            <EmojiPicker emoji={doc.emoji || "📝"} docId={docId} />
-          </Suspense>
-          <small className="font-medium text-primary">{doc.title}</small>
-        </header>
-        <Button
-          size="icon"
-          title="Close"
-          variant="ghost"
-          onClick={() => closeDoc(doc.id)}
-        >
-          <XMarkIcon className="w-4 h-4 opacity-60" />
-        </Button>
-      </div>
+      <DocHeader id={doc.id} />
       <section className="flex flex-col px-6 py-8 h-full">
         <TipTapEditor doc={doc} handleOnSave={handleOnSave} />
         <Suspense fallback="Loading...">
