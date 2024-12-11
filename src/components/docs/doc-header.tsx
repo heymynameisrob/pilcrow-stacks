@@ -1,5 +1,5 @@
 import React from "react";
-import { HomeIcon, XMarkIcon } from "@heroicons/react/16/solid";
+import { HomeIcon, XMarkIcon, TrashIcon } from "@heroicons/react/16/solid";
 import { MoreHorizontalIcon } from "lucide-react";
 
 import { EmojiPicker } from "@/components/emoji-picker";
@@ -15,7 +15,6 @@ import {
 import { useOpenDocsStore } from "@/stores/docs";
 import { Badge } from "@/primitives/badge";
 import { Tooltip } from "@/primitives/tooltip";
-import { TrashIcon } from "@heroicons/react/16/solid";
 
 export function DocHeader({ id }: { id: string }) {
   const { doc } = useDoc(id);

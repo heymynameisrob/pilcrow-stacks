@@ -21,8 +21,8 @@ jobs:
 
       - name: Configure Yarn
         run: |
-          yarn config set '@tiptap-pro:registry' 'https://registry.tiptap.dev'
-          yarn config set '//registry.tiptap.dev/:_authToken' '${{ secrets.TIPTAP_PRO_TOKEN }}'
+          yarn config set "@tiptap-pro:registry" https://registry.tiptap.dev
+          yarn config set "//registry.tiptap.dev/:_authToken" 2p57eGWikYWRPQZkT+CaUrIVU7tLSgGZPp49fID0nNdlXj0tXcDA3uhx5sxd/K7J
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
