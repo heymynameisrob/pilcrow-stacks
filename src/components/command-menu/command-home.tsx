@@ -3,29 +3,26 @@ import { signOut } from "next-auth/react";
 import {
   ArchiveBoxXMarkIcon,
   ArrowRightEndOnRectangleIcon,
-  BookOpenIcon,
   BugAntIcon,
   ComputerDesktopIcon,
   DocumentPlusIcon,
   MagnifyingGlassIcon,
   ArrowLeftStartOnRectangleIcon,
+  GlobeAltIcon,
 } from "@heroicons/react/16/solid";
+import { toast } from "sonner";
 
 import { useDocs, useDocsInView } from "@/queries/docs";
-import { useReadOnlyStore } from "@/stores/docs";
 import { CommandGroup, CommandItem } from "@/primitives/command";
 import { useCommandContext } from "@/components/command-menu";
 import { useUser } from "@/queries/user";
 import { createSlug } from "@/lib/utils";
-import { toast } from "sonner";
-import { GlobeAltIcon } from "@heroicons/react/16/solid";
 
 export function CommandHome() {
   const { setOpen, setCurrentPage } = useCommandContext();
   const { newDoc } = useDocs();
   const { updateUserProfile, user } = useUser();
   const { docs: openDocs, closeDoc, closeAllDocs } = useDocsInView();
-  const { setReadOnlyMode, readOnlyMode } = useReadOnlyStore();
   const { theme, setTheme } = useTheme();
 
   return (
