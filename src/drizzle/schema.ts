@@ -24,9 +24,7 @@ export const users = pgTable("user", {
   name: text("name").notNull(),
   email: text("email").unique(),
   image: text("image"),
-  publicId: text("public_id")
-    .unique()
-    .$defaultFn(() => nanoid()),
+  publicId: text("public_id").unique().default(nanoid()),
   isPublic: boolean("is_public").default(false),
 });
 
