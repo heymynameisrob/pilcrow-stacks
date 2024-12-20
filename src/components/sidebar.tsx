@@ -2,7 +2,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useHotkeys } from "react-hotkeys-hook";
 import { Portal } from "@radix-ui/react-hover-card";
 
-import { useOpenDocsStore } from "@/stores/docs";
 import { useDoc, useDocsInView } from "@/queries/docs";
 import { cn, LIMIT } from "@/lib/utils";
 import {
@@ -13,9 +12,7 @@ import {
 import { RichText } from "@/components/rich-text";
 import { Island } from "@/components/client-island";
 
-export function PrevSidebar() {
-  const { docs, cursor, setCursor } = useDocsInView();
-
+export function PrevSidebar({ docs, cursor, setCursor }: any) {
   useHotkeys("Mod+[", () => setCursor(cursor - 1), {
     enabled: cursor > 0,
     preventDefault: true,
@@ -60,9 +57,7 @@ export function PrevSidebar() {
     </div>
   );
 }
-export function NextSidebar() {
-  const { docs, cursor, setCursor } = useDocsInView();
-
+export function NextSidebar({ docs, cursor, setCursor }: any) {
   useHotkeys("Mod+]", () => setCursor(cursor + 1), {
     preventDefault: true,
     enableOnContentEditable: true,

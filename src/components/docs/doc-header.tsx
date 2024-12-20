@@ -12,7 +12,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/primitives/dropdown-menu";
-import { useOpenDocsStore } from "@/stores/docs";
 import { Badge } from "@/primitives/badge";
 import { Tooltip } from "@/primitives/tooltip";
 
@@ -25,11 +24,6 @@ export function DocHeader({ id }: { id: string }) {
   return (
     <div className="sticky top-0 flex items-center justify-between w-full h-12 px-2 py-2">
       <header role="banner" className="flex items-center gap-2 px-2">
-        {/* <React.Suspense
-          fallback={<div className="h-7 w-7 rounded-mg bg-gray-3" />}
-        >
-          <EmojiPicker emoji={doc.emoji || "📝"} docId={id} />
-        </React.Suspense> */}
         {id === homepage ? (
           <Tooltip content="This is your homepage" align="start">
             <Badge className="h-7 w-7 justify-center rounded-md bg-cyan-100 text-cyan-700 dark:bg-cyan-500/20 dark:text-cyan-400">

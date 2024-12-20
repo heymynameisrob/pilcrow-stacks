@@ -12,13 +12,18 @@ import {
 } from "@heroicons/react/16/solid";
 
 import { useDocs, useDocsInView } from "@/queries/docs";
-import { useOpenDocsStore, useReadOnlyStore } from "@/stores/docs";
+import { useReadOnlyStore } from "@/stores/docs";
 import { CommandGroup, CommandItem } from "@/primitives/command";
 import { useCommandContext } from "@/components/command-menu";
+import { useUser } from "@/queries/user";
+import { createSlug } from "@/lib/utils";
+import { toast } from "sonner";
+import { GlobeAltIcon } from "@heroicons/react/16/solid";
 
 export function CommandHome() {
   const { setOpen, setCurrentPage } = useCommandContext();
   const { newDoc } = useDocs();
+  const { updateUserProfile, user } = useUser();
   const { docs: openDocs, closeDoc, closeAllDocs } = useDocsInView();
   const { setReadOnlyMode, readOnlyMode } = useReadOnlyStore();
   const { theme, setTheme } = useTheme();
@@ -64,16 +69,25 @@ export function CommandHome() {
               <small className="font-medium">Close all documents</small>
             </CommandItem>
             <CommandItem
-              onSelect={() => {
-                setReadOnlyMode(!readOnlyMode);
+              onSelect={async () => {
+                updateUserProfile({
+                  ...user,
+                  isPublic: !user?.isPublic,
+                });
+                if (user && !user.isPublic) {
+                  navigator.clipboard.writeText(
+                    `https://pilcrow.xyz/s/${createSlug(user.name!)}-${user.publicId}`,
+                  );
+                  toast.success("Copied link to clipboard");
+                }
                 setOpen(false);
               }}
             >
-              <BookOpenIcon className="w-4 h-4 opacity-70" />
-              {readOnlyMode ? (
-                <small className="font-medium">Writing mode</small>
+              <GlobeAltIcon className="w-4 h-4 opacity-70" />
+              {user?.isPublic ? (
+                <small className="font-medium">Unpublish</small>
               ) : (
-                <small className="font-medium">Read-only mode</small>
+                <small className="font-medium">Publish to web</small>
               )}
             </CommandItem>
           </>

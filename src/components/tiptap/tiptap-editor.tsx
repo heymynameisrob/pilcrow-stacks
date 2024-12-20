@@ -4,13 +4,14 @@ import ky from "ky";
 import { Editor, EditorContent, useEditor } from "@tiptap/react";
 import { EditorState } from "@tiptap/pm/state";
 
-import { useOpenDocsStore, useReadOnlyStore } from "@/stores/docs";
+import { useReadOnlyStore } from "@/stores/docs";
 import { defaultExtensions } from "@/components/tiptap/extensions";
 import { Mention } from "@/components/tiptap/extensions/mentions/mention";
 import { defaultEditorProps } from "@/components/tiptap/tiptap-props";
 import { renderMentions } from "@/components/tiptap/extensions/mentions";
 import { TipTapMenu } from "@/components/tiptap/tiptap-menu";
 import { useBacklinks } from "@/queries/backlinks";
+import { useDocsInView } from "@/queries/docs";
 
 import type { ApiReturnType, Doc } from "@/lib/types";
 
@@ -19,7 +20,7 @@ export const TipTapEditor = ({
   handleOnSave,
 }: {
   doc: any;
-  handleOnSave: (editor: Editor) => void;
+  handleOnSave?: (editor: Editor) => void;
 }) => {
   // Local states
   const [focused, setFocused] = useState<boolean>(false);
@@ -27,7 +28,7 @@ export const TipTapEditor = ({
 
   // Queries & Stores
   const { removeBacklink } = useBacklinks();
-  const { closeDoc } = useOpenDocsStore();
+  const { closeDoc } = useDocsInView();
   const { readOnlyMode } = useReadOnlyStore();
 
   useHotkeys("Esc", () => closeDoc(doc.id), {

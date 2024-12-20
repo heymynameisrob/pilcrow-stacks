@@ -1,25 +1,22 @@
-import { Suspense, useCallback, useEffect, useState } from "react";
+import * as React from "react";
 import { useDebouncedCallback } from "use-debounce";
-import { XMarkIcon } from "@heroicons/react/16/solid";
 
-import { Button } from "@/primitives/button";
 import { useDoc, useDocsInView } from "@/queries/docs";
-import { EmojiPicker } from "@/components/emoji-picker";
 import { TipTapEditor } from "@/components/tiptap/tiptap-editor";
 import { getTitleFromJson } from "@/lib/editor";
 import { cn } from "@/lib/utils";
-import { useOpenDocsStore } from "@/stores/docs";
 import { Backlinks } from "@/components/backlinks";
 import { DocHeader } from "@/components/docs/doc-header";
 
 import type { Editor as EditorType } from "@tiptap/react";
 
 export function Editor({ docId }: { docId: string }) {
-  const [isSaving, setIsSaving] = useState<boolean>(false);
+  const [isSaving, setIsSaving] = React.useState<boolean>(false);
+  const editorRef = React.useRef<HTMLDivElement>(null);
 
   // Queries
   const { doc, saveDoc } = useDoc(docId);
-  const { closeDoc, openDoc } = useDocsInView();
+  const { openDoc } = useDocsInView();
 
   /**
    * 1 - Handle Save
@@ -47,23 +44,27 @@ export function Editor({ docId }: { docId: string }) {
    * 2 - Handle Mentions
    * Open new document when @ mention is clicked
    */
-  const handleMentionLink = useCallback(
+  const handleMentionLink = React.useCallback(
     (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       if (target.dataset.type === "mention") {
         const id = target.dataset.id;
-        if (!id || !doc) return;
+        if (!id || !docId) return;
+        console.log("Fire!", docId, target);
 
-        openDoc(id);
+        openDoc({ rootId: docId, targetId: id });
       }
     },
-    [doc, openDoc],
+    [docId, openDoc],
   );
 
-  useEffect(() => {
-    document.addEventListener("click", handleMentionLink);
+  React.useEffect(() => {
+    const editorElement = editorRef.current;
+    if (!editorElement) return;
+
+    editorElement.addEventListener("click", handleMentionLink);
     return () => {
-      document.removeEventListener("click", handleMentionLink);
+      editorElement.removeEventListener("click", handleMentionLink);
     };
   }, [handleMentionLink]);
 
@@ -71,6 +72,7 @@ export function Editor({ docId }: { docId: string }) {
 
   return (
     <div
+      ref={editorRef}
       className={cn(
         "relative flex flex-col w-full h-full shrink-0 bg-background border-r last:border-none dark:bg-gray-2",
         isSaving && "opacity-70 pointer-events-none aniamte-pulse",
@@ -79,9 +81,9 @@ export function Editor({ docId }: { docId: string }) {
       <DocHeader id={doc.id} />
       <section className="flex flex-col px-6 py-8 h-full">
         <TipTapEditor doc={doc} handleOnSave={handleOnSave} />
-        <Suspense fallback="Loading...">
+        <React.Suspense fallback="Loading...">
           <Backlinks id={doc.id} />
-        </Suspense>
+        </React.Suspense>
       </section>
     </div>
   );

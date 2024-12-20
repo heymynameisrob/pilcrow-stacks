@@ -2,12 +2,10 @@ import React from "react";
 
 import { useBacklinkedDocs } from "@/queries/backlinks";
 import { Doc } from "@/lib/types";
-import { useOpenDocsStore } from "@/stores/docs";
 import { useDocsInView } from "@/queries/docs";
 
 export function Backlinks({ id }: { id: string }) {
   const { docs } = useBacklinkedDocs(id);
-  // const { openDoc } = useOpenDocsStore();
   const { openDoc } = useDocsInView();
 
   if (!docs || docs.length === 0) return null;
@@ -19,12 +17,7 @@ export function Backlinks({ id }: { id: string }) {
         {docs.map((doc: Doc) => (
           <li key={doc.id}>
             <button
-              onMouseDown={() => openDoc(doc.id)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  return openDoc(doc.id);
-                }
-              }}
+              onClick={() => openDoc({ targetId: doc.id, rootId: id })}
               className="flex items-center gap-1.5 px-2 py-1 h-7 rounded-lg bg-gray-3 text-xs hover:bg-gray-4 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               <span>{doc.emoji}</span>

@@ -18,8 +18,8 @@ import {
   FeatureFlagManager,
   FeatureFlagProvider,
 } from "@/components/feature-flags";
-import { CommandMenu } from "@/components/command-menu";
 import { IS_DEV } from "@/lib/flags";
+import { Toaster } from "@/primitives/sonner";
 
 import type { AppProps } from "next/app";
 
@@ -53,7 +53,7 @@ function makeQueryClient(persisterOptions?: boolean) {
         gcTime: 24 * 60 * 60 * 1000, // 24 hours
         // @ts-expect-error - This is a valid option
         persister:
-          isServer || !persisterOptions
+          isServer || IS_DEV || !persisterOptions
             ? undefined
             : persister({
                 storage: newIdbStorage(
@@ -129,8 +129,8 @@ export default function App({
           >
             <Tooltip.Provider delayDuration={100}>
               <Component {...pageProps} />
-              <CommandMenu />
             </Tooltip.Provider>
+            <Toaster />
           </ThemeProvider>
           <FeatureFlagManager />
         </FeatureFlagProvider>

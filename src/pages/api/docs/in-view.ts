@@ -24,7 +24,7 @@ export default async function handler(
 
   if (req.method === "PUT") {
     const data = req.body;
-    console.log("asdasdsad");
+
     const json = await updateDocsInView(userId, data);
     return res.status(200).json(json);
   }
@@ -44,22 +44,12 @@ async function getData(userId: string) {
       .where(eq(schema.docsInView.userId, userId))
       .limit(1);
 
-    if (data[0]?.homepage && data[0]?.docIds && data[0]?.docIds.length > 0) {
-      const newDocIds = data[0].docIds.includes(data[0].homepage)
-        ? [
-            data[0].homepage,
-            ...data[0].docIds.filter((id) => id !== data[0].homepage),
-          ]
-        : [data[0].homepage, ...data[0].docIds];
-
-      return {
-        data: { ...data[0], docIds: newDocIds },
-        status: 200,
-      };
-    }
-
     return {
-      data: data[0],
+      data: {
+        ...data[0],
+        docIds:
+          data[0].docIds.length === 0 ? [data[0].homepage] : data[0].docIds,
+      },
       status: 200,
     };
   } catch (error) {
@@ -68,30 +58,39 @@ async function getData(userId: string) {
   }
 }
 
-async function updateDocsInView(userId: string, data: DocsInView) {
+async function updateDocsInView(userId: string, docsInView: DocsInView) {
   try {
     const existing = await db.query.docsInView.findFirst({
       where: eq(schema.docsInView.userId, userId),
     });
 
     if (existing) {
-      // Update
-      await db
+      console.log("Updating existing");
+      const data = await db
         .update(schema.docsInView)
-        .set({ ...data })
-        .where(eq(schema.docsInView.userId, userId));
-    } else {
-      // Insert
-      await db.insert(schema.docsInView).values({
-        ...data,
-        userId,
-      });
-    }
+        .set({ ...docsInView })
+        .where(eq(schema.docsInView.userId, userId))
+        .returning();
 
-    return {
-      data,
-      status: 200,
-    };
+      return {
+        data: data[0],
+        status: 200,
+      };
+    } else {
+      console.log("Inserting new...");
+      const data = await db
+        .insert(schema.docsInView)
+        .values({
+          ...docsInView,
+          userId,
+        })
+        .returning();
+
+      return {
+        data: data[0],
+        status: 200,
+      };
+    }
   } catch (error) {
     console.error("Error updating docs in view:", error);
     return { data: null, status: 500, error: "Failed to update docs in view" };

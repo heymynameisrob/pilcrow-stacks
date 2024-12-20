@@ -1,3 +1,4 @@
+import * as React from "react";
 import {
   keepPreviousData,
   useMutation,
@@ -9,7 +10,6 @@ import { useSession } from "next-auth/react";
 import { toast } from "sonner";
 
 import { api, REVALIDATE_DAY } from "@/lib/fetch";
-import { useOpenDocsStore } from "@/stores/docs";
 import { LIMIT } from "@/lib/utils";
 
 import type { ApiReturnType, Doc, DocsInView } from "@/lib/types";
@@ -164,18 +164,24 @@ export function useDocsInView() {
 
   const { mutate: openDoc } = useMutation({
     mutationKey: ["/api/docs/in-view", session?.user.id],
-    mutationFn: async (docId: string) => {
-      console.log("TEST");
-      const docIds = [...(data?.docIds || [])];
-      if (!docIds.includes(docId)) {
-        docIds.push(docId);
-      }
+    mutationFn: async ({
+      rootId,
+      targetId,
+    }: {
+      rootId?: string;
+      targetId: string;
+    }) => {
+      const docIds = data?.docIds ?? [];
+      const rootIndex = rootId ? docIds.indexOf(rootId) : 0;
+      const newDocIds = rootId
+        ? [...docIds.slice(0, rootIndex + 1), targetId]
+        : [...docIds, targetId];
 
       const { data: responseData, error }: ApiReturnType<DocsInView> = await api
         .put("/api/docs/in-view", {
           json: {
             ...data,
-            docIds,
+            docIds: newDocIds,
             cursor: docIds.length > 3 ? docIds.length - LIMIT : 0,
           },
         })
@@ -184,14 +190,24 @@ export function useDocsInView() {
       if (error) throw Error(error.message);
       return responseData;
     },
-    onMutate: async (docId) => {
+    onMutate: async ({ rootId, targetId }) => {
+      const docIds =
+        queryClient.getQueryData<DocsInView>([
+          "/api/docs/in-view",
+          session?.user.id,
+        ])?.docIds ?? [];
+      const rootIndex = rootId ? docIds.indexOf(rootId) : 0;
+      const newDocIds = rootId
+        ? [...docIds.slice(0, rootIndex + 1), targetId]
+        : [...docIds, targetId];
+
       queryClient.setQueryData(
         ["/api/docs/in-view", session?.user.id],
         (old: DocsInView | undefined) => {
           return {
             ...old,
-            docIds: old?.docIds ? [...old.docIds, docId] : [docId],
-            cursor: old?.cursor || 0,
+            docIds: newDocIds,
+            cursor: newDocIds.length > 3 ? newDocIds.length - LIMIT : 0,
           };
         },
       );
@@ -242,8 +258,6 @@ export function useDocsInView() {
     },
   });
 
-  console.log(data);
-
   return {
     docs: data?.docIds || [],
     cursor: Number(data?.cursor) || 0,
@@ -285,7 +299,7 @@ export function useDocs() {
     },
     onSuccess: (data: Doc | null) => {
       if (!data) return null;
-      openDoc(data.id);
+      openDoc({ targetId: data.id });
     },
   });
 

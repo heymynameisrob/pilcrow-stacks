@@ -6,6 +6,7 @@ import {
   primaryKey,
   timestamp,
   numeric,
+  boolean,
 } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm/sql";
 import { nanoid } from "nanoid";
@@ -23,6 +24,10 @@ export const users = pgTable("user", {
   name: text("name").notNull(),
   email: text("email").unique(),
   image: text("image"),
+  publicId: text("public_id")
+    .unique()
+    .$defaultFn(() => nanoid()),
+  isPublic: boolean("is_public").default(false),
 });
 
 export const docs = pgTable(

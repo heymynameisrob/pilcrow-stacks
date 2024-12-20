@@ -1,14 +1,23 @@
+import * as React from "react";
 import { Island } from "@/components/client-island";
 import { OpenDocsEmptyState } from "@/components/docs/docs-empty";
 import { Editor } from "@/components/docs/doc-editor";
 import { LIMIT } from "@/lib/utils";
-import { useDocsInView } from "@/queries/docs";
+import { ReadOnly } from "@/components/docs/doc-public";
 
 import type { DocsInView } from "@/lib/types";
 
-export function DocsInView() {
-  const { docs: docs, homepage, cursor } = useDocsInView();
-
+export function DocsInView({
+  docs,
+  homepage,
+  cursor,
+  publicId,
+}: {
+  docs: string[];
+  homepage: string | null | undefined;
+  cursor: number;
+  publicId?: string;
+}) {
   const visibleDocs = docs.length > 0 ? docs : homepage ? [homepage] : [];
 
   return (
@@ -20,11 +29,15 @@ export function DocsInView() {
             .map((doc) => {
               return (
                 <Island key={doc} suspense={true} fallback={null}>
-                  <Editor docId={doc} />
+                  {publicId ? (
+                    <ReadOnly docId={doc} publicId={publicId} />
+                  ) : (
+                    <Editor docId={doc} />
+                  )}
                 </Island>
               );
             })}
-        {visibleDocs.length < 3 && <OpenDocsEmptyState />}
+        {!publicId && visibleDocs.length < 3 && <OpenDocsEmptyState />}
       </div>
     </div>
   );

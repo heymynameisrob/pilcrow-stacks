@@ -23,7 +23,7 @@ export function CommandDocs() {
           key={doc.id}
           keywords={[doc.id, doc.title!]}
           onSelect={() => {
-            openDoc(doc.id);
+            openDoc({ targetId: doc.id });
             setOpen(false);
           }}
         >
